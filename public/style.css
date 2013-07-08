@@ -1,0 +1,61 @@
+body, html {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#header {
+	background: #00132a;
+	padding: 10px 20px;
+	overflow: hidden;
+}
+
+.logo {
+	float: left;
+	margin: 0;
+	color: #fff;
+}
+
+#general-settings-bar {
+	float: right;
+}
+
+.layout-selector {
+
+}
+
+#content {
+	background: #f7faff;
+}
+
+.choose-layout-banner {
+	width: 380px;
+	color: #fff;
+	text-shadow:
+   -1px -1px 0 #ecf1f9,  
+    1px -1px 0 #ecf1f9,
+    -1px 1px 0 #ecf1f9,
+     1px 1px 0 #ecf1f9;
+	position: absolute;
+	left: 38%;
+	font-size: 50px;
+	z-index: 0;
+}
+
+iframe {
+	width: 100%;
+	position: relative;
+	border: none;
+	z-index: 10;
+}
+
+#footer {
+
+}
