@@ -1,6 +1,6 @@
-YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
+YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 
-	var LayoutGenerator, GeneralSettings;
+	var LayoutGenerator, GeneralSettings, DDDOM, GearEditButton, EditModal;
 
 	// GeneralSettings View
 	// Responsible for setting styles that will affect the entire HTML DOM such as background-color, font-color, font-size, etc.
@@ -12,6 +12,7 @@ YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 			'.layout-selector': {change: 'changeLayout'},
 			'.font-size-selector': {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
+			'.display-edit-buttons': {click: 'displayEditButtons'}
 		},
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -31,6 +32,7 @@ YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 					iframeHeight = iframeDocument.get('height');
 					Y.one('iframe').setStyles({'backgroundColor': '#fff','height': iframeHeight});
 					new DDDOM().render();
+					new GearEditButton({exists: false, active: false}).render();
 				});
 
 		},
@@ -45,8 +47,35 @@ YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 		changeFontFamily: function(e) {
 			var fontFamily = e.target.get('value'),
 				iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
-				
+
 				iframeBody.setStyle('fontFamily', fontFamily);
+		},
+
+		displayEditButtons: function(e) {
+			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+
+			iframeBody.all('*').each(function(n) {
+
+				if(n.hasClass('pure-edit')) {
+
+					n.get('children').each(function(child) {
+						if(child.hasClass('gearButton')) {
+							if(child.getStyle('display') === 'block') {
+								child.setStyles({
+									'display': 'none'
+								});
+							} else {
+								child.setStyles({
+									'display': 'block'
+								});
+							}
+								
+						}
+
+					});
+
+				}
+			});
 		},
 
 		// ---- Render View to DOM --------------------------------------------------------------------------------
@@ -67,6 +96,7 @@ YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 		}
 	});
 	new GeneralSettings().render();
+
 
 
 	// DDDOM View
@@ -127,9 +157,11 @@ YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 							node: n.get('parentNode')
 						});
 						
+						/*
 						n.on('mouseover', function(e) {
 							e.target.setStyle('cursor', 'move');
 						});
+*/
 					}
 
 				});
@@ -149,6 +181,218 @@ YUI().use('node', 'view', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 			}			
 		}
 	});
+
 	
+	
+	// GearEditButton View
+	// Responsible appending an edit button to pure-edit each DOM element in order to reveal EditModule
+	GearEditButton = Y.GearEditButton = Y.Base.create('gearEditButton', Y.View, [], {
+
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		renderModal: function() {
+			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+			iframeBody.all('*').each(function(n) {
+
+				if(n.hasClass('pure-edit')) {
+
+					n.get('children').each(function(child) {
+						if(child.hasClass('gearButton')) {
+							child.on('click', function(e) {
+								console.log(e.target.get('parentNode'));
+								new EditModal().render(e.target);
+							});
+						}
+
+					});
+
+				}
+			});
+		},
+
+		// ---- Render View to DOM ---------------------------------------------------------------------------------
+		render: function() {			
+			var container = this.get('container'),
+				that = this;
+				
+
+				var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+				//gearButton = Y.Node.create('<img class="gearButton" src="/img/gear.png" alt="edit" />');
+
+				iframeBody.all('*').each(function(n) {
+
+					if(n.hasClass('pure-edit')) {
+
+						n.get('children').each(function(child) {
+
+							var gearButton = Y.Node.create('<img class="gearButton" src="/img/gear.png" alt="edit" />');
+							
+							child.insert(gearButton, 'before');
+							gearButton.setStyles({
+								'display': 'none',
+								'width' : '20',
+								'height': '20',
+								'position': 'absolute',
+								//'top': child.getY(),
+								'left': child.getX()
+							});
+
+						});							
+
+					}
+				});
+				this.renderModal();
+				/*
+				Y.one(container).all('*').each(function(n) { 
+					if(n.hasClass('pure-edit')) {
+
+
+						n.get('children').each(function(child) {
+
+							child.on('mouseenter', function(e) {
+
+								var gearButton = Y.Node.create('<img class="gearButton" src="/img/gear.png" alt="edit" />'),
+									enterPosition = e.pageY,
+									parent = e.currentTarget;
+									
+								gearButton.setStyles({
+									'width' : '20',
+									'height': '20',
+									'position': 'absolute',
+									'left': (e.currentTarget.getX())
+								});
+
+								if(!that.get('exists')) {
+									parent.insert(gearButton, 'before');
+									that.set('exists', true);
+									console.log(that.get('exists'));
+								}
+								//e.currentTarget
+
+								if(that.get('exists')) {
+									console.log('hi');
+									this.get('parentNode').one('.gearButton').on('mouseenter', function(e) {
+										that.set('active', true);
+										
+									});
+									
+								//	if(!that.get('active')) {
+										child.once('mouseleave', function(e) {
+											this.get('parentNode').one('.gearButton').remove();
+											that.set('exists', false);
+											console.log(that.get('exists'));
+										});
+									//}
+									
+								}
+								
+								child.get('parentNode').one('.gearButton').on('click', function(e) {
+									var modal = new EditModal();
+									modal.render(parent);
+
+									console.log(child)
+									e.target.on('mouseleave', function(e) {
+										console.log(this);
+									});
+
+									e.target.on('mouseleave', function(e) {
+										e.target.remove();
+									});
+								});
+								
+								
+								child.get('parentNode').one('.gearButton').on('click', function(e) {
+									if(!child.get('parentNode').one('.edit-modal')) {
+										var modal = new EditModal();
+										modal.render(parent);
+										child.detachAll(e);
+									}
+								});
+							
+
+							});
+							
+							this.on('mousemove', function(e) {
+								if(e.pageY === this.get('y')) {
+
+								}
+								
+								//this.get('parentNode').one('.gearButton').remove();
+								
+								//console.log(e.pageY);
+								//console.log(this);
+							});
+							
+							this.on('mouseleave', function(e) {
+								
+							});
+							
+
+						});
+
+					}
+				});
+				*/
+				// ---- Events -------------------------------------------------------------------------
+
+
+			return this;
+		},
+
+	}, {
+		ATTRS: {
+			container: {
+				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
+			}			
+		}
+	});
+
+
+
+	
+	// EditModal View
+	// Responsible for displaying the edit modal when the GearEditButton is clicked
+	EditModal = Y.EditModal = Y.Base.create('editModal', Y.View, [], {
+
+		
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+
+
+		removeModal: function() {
+			this.remove();
+		},
+
+		// ---- Render View to DOM ---------------------------------------------------------------------------------
+		render: function(parent) {			
+			var head = this.get('container').get('parentNode').one('head'),
+				//modal      = this.get('container').one('.edit-modal'),
+				modal = Y.Node.create('<div class="edit-modal" />'),
+				modalStyle = Y.one('#modal-stylesheet').getHTML();
+
+				modal.setStyles({
+					'top': parent.getY(),
+					'z-index': '1000'
+				});
+
+				modal.setHTML(Y.one('#edit-modal').getHTML());
+				parent.insert(modal, 'before');
+
+				head.append(modalStyle);
+				
+
+				// ---- Events -------------------------------------------------------------------------
+				modal.on('mouseleave', this.removeModal);
+				//this.renderModal();
+
+			return this;
+		},
+
+	}, {
+		ATTRS: {
+			container: {
+				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
+			}			
+		}
+	});
+
 
 });

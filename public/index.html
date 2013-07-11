@@ -30,6 +30,7 @@
 </div>
 
 <!-- Templates -->
+<!-- General Settings Template -->
 <script id="general-settings" type='text/generator-template'>
 		<select class='layout-selector'>
 			<option value="">Layouts</option>
@@ -59,8 +60,60 @@
  			<option value="sans-serif">Sans-Serif</option>
  			<option value="times">Times</option>
 		</select>
+
+		<label for="display-edit-button-textbox">Show Edit</label>
+		<input id="display-edit-button-textbox" class="display-edit-buttons" type="checkbox" />
 </script>
 
+<!-- Edit Modal Template -->
+<script id="edit-modal" type='text/generator-template'>
+
+			<ul class=".alignment">
+				<li>align:</li> 
+				<li><a href="#" value="left">left</a></li> 
+				<li><a href="#" value="center">center</a></li> 
+				<li><a href="#" value="right">right</a></li>
+			</ul>
+
+</script>
+
+<!-- Modal Stylsheet-->
+<script id="modal-stylesheet" type="text/generator-template">
+	<style class="modal-stylesheet">
+		.edit-modal {
+			width: 300px;
+			background: #375a84;
+			position: absolute;
+			margin: 0;
+			padding: 5px;
+			border: solid 5px #cad9eb;
+			border-radius: 5px;
+			box-shadow: 2px 2px 2px #999;
+			font-size: 14px;
+			color: #fff;
+		}
+
+		.edit-modal a {
+			text-decoration: none;
+			color: #fff;
+		}
+
+		.edit-modal a:hover {
+			text-decoration: underline;
+		}
+
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul li {
+			display: inline;
+		}
+
+	</style>
+</script>
 
 <script src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
 <script src='/app.js'></script>

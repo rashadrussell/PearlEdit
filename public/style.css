@@ -5,6 +5,7 @@ body, html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #fff;
 }
 
 a {
@@ -39,10 +40,10 @@ a {
 	width: 380px;
 	color: #fff;
 	text-shadow:
-   -1px -1px 0 #ecf1f9,  
-    1px -1px 0 #ecf1f9,
-    -1px 1px 0 #ecf1f9,
-     1px 1px 0 #ecf1f9;
+   -1px -1px 0 #a6bede,  
+    1px -1px 0 #a6bede,
+    -1px 1px 0 #a6bede,
+     1px 1px 0 #a6bede;
 	position: absolute;
 	left: 38%;
 	font-size: 50px;
