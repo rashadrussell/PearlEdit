@@ -132,7 +132,8 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
         	drop = e.drop.get('node');
     
         	// Add the node to this list
-       	 	Y.DD.DDM.swapPosition(drag, drop);
+        	console.log(e.drag.target);
+       	 	Y.DD.DDM.swapNode(drag, drop);
         	// Resize this nodes shim, so we can drop on it later.
         	e.drop.sizeShim();
     		
@@ -148,11 +149,13 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 						var drag, drop;	
 
 						drag = new Y.DD.Drag({
-							node: n
+							node: n.get('parentNode')
 						}).plug(Y.Plugin.DDProxy, {
 							moveOnEnd: false
 						});
 
+						//console.log(n.get('parentNode').get('parentNode'));
+						//console.log(n);
 						drop = new Y.DD.Drop({
 							node: n.get('parentNode')
 						});
@@ -168,8 +171,8 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 
 				// ---- Events -------------------------------------------------------------------------
 				Y.DD.DDM.on('drag:start', this.dragProxy);
-				Y.DD.DDM.on('drag:end'  , this.postProxyStyle);
 				Y.DD.DDM.on('drop:over' , this.adjustShim);
+				Y.DD.DDM.on('drag:end'  , this.postProxyStyle);
 
 			return this;
 		},
