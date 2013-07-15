@@ -127,14 +127,12 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 		},
 
 		adjustShim: function(e) {
-			// Get a reference to our drag and drop nodes
     		var drag = e.drag.get('node'),
         	drop = e.drop.get('node');
     
-        	// Add the node to this list
         	console.log(e.drag.target);
        	 	Y.DD.DDM.swapNode(drag, drop);
-        	// Resize this nodes shim, so we can drop on it later.
+
         	e.drop.sizeShim();
     		
 		},
@@ -149,7 +147,7 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 						var drag, drop;	
 
 						drag = new Y.DD.Drag({
-							node: n.get('parentNode')
+							node: n
 						}).plug(Y.Plugin.DDProxy, {
 							moveOnEnd: false
 						});
@@ -157,14 +155,14 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 						//console.log(n.get('parentNode').get('parentNode'));
 						//console.log(n);
 						drop = new Y.DD.Drop({
-							node: n.get('parentNode')
+							node: n
 						});
 						
 						/*
 						n.on('mouseover', function(e) {
 							e.target.setStyle('cursor', 'move');
 						});
-*/
+						*/
 					}
 
 				});
@@ -236,7 +234,8 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 								'height': '20',
 								'position': 'absolute',
 								//'top': child.getY(),
-								'left': child.getX()
+								'left': child.getX(),
+								'z-index': '1000'
 							});
 
 						});							
