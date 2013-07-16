@@ -1,11 +1,13 @@
 LayoutGenerator
 ===============
 
-Live WYSIWYG LayoutGenerator
+Live WYSIWYG LayoutGenerator that maintains responsiveness after customization.
 
 API's
 ===============
 YUI
+
+Express
 
 Pure CSS - http://www.purecss.io
 
