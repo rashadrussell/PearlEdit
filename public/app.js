@@ -1,4 +1,4 @@
-YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
+YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'uploader', function(Y) {
 
 	var LayoutGenerator, GeneralSettings, DDDOM, GearEditButton, EditModal;
 
