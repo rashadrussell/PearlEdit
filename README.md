@@ -1,7 +1,9 @@
 LayoutGenerator
 ===============
 
-Live WYSIWYG LayoutGenerator that maintains responsiveness after customization.
+Live WYSIWYG LayoutGenerator that maintains responsiveness after customization. 
+
+Use Chrome(recommended) or FireFox for best suppport. 
 
 API's
 ===============
@@ -18,6 +20,6 @@ HTML5 Drag & Drop
 
 Features:
 
-Drag & Drop Elements
+Drag & Drop elements to adjust layout
 
 Drag & Drop images from desktop into image-placeholders 
