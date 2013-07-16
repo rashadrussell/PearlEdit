@@ -7,9 +7,9 @@ Use Chrome(recommended) or FireFox for best suppport.
 
 API's
 ===============
-YUI
+YUI - http://yuilibrary.com
 
-Express
+Express - http://expressjs.com
 
 Pure CSS - http://www.purecss.io
 
