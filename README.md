@@ -1,7 +1,7 @@
 LayoutGenerator
 ===============
 
-Live WYSIWYG LayoutGenerator that maintains responsiveness after customization. 
+Layout Generator is a live WYSIWYG website generator that allows for in browser customization and guranteeing responsiveness. 
 
 Use Chrome(recommended) or FireFox for best suppport. 
 
