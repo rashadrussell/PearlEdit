@@ -34,6 +34,7 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 					new DDDOM().render();
 					new GearEditButton({exists: false, active: false}).render();
 					//new UploadImg().render();
+					new TextEdit().render();
 				});
 
 		},
@@ -85,6 +86,7 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 
 				container.setHTML(this.template);
 				Y.one('#header').append(container);
+
 
 			return this;
 		},
@@ -243,7 +245,10 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		renderModal: function() {
-			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
+				linkIndex,
+				modalLink;
+
 			iframeBody.all('*').each(function(n) {
 
 				if(n.hasClass('pure-edit')) {
@@ -251,8 +256,9 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 					n.get('children').each(function(child) {
 						if(child.hasClass('gearButton')) {
 							child.on('click', function(e) {
-								console.log(e.target.get('parentNode'));
-								new EditModal().render(e.target);
+								linkIndex = e.target.get('className').indexOf('pure-gearButtonLink-'),
+								modalLink = e.target.get('className').substr(linkIndex);
+								new EditModal().render(e.target, modalLink);
 							});
 						}
 
@@ -265,30 +271,33 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 		// ---- Render View to DOM ---------------------------------------------------------------------------------
 		render: function() {			
 			var container = this.get('container'),
-				that = this;
-				
+				that = this,
+				gearButtonLink = 1;
 
 				var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
 				//gearButton = Y.Node.create('<img class="gearButton" src="/img/gear.png" alt="edit" />');
-
+				
 				iframeBody.all('*').each(function(n) {
 
 					if(n.hasClass('pure-edit')) {
 
 						n.get('children').each(function(child) {
-
-							var gearButton = Y.Node.create('<img class="gearButton" src="/img/gear.png" alt="edit" />');
 							
-							child.insert(gearButton, 'before');
-							gearButton.setStyles({
-								'display': 'none',
-								'width' : '20',
-								'height': '20',
-								'position': 'absolute',
-								//'top': child.getY(),
-								'left': child.getX(),
-								'z-index': '1000'
-							});
+							var gearButton = Y.Node.create('<img class="gearButton ' + 'pure-gearButtonLink-' + gearButtonLink + '" src="/img/gear.png" alt="edit" />');
+							
+								gearButton.setStyles({
+									'display': 'none',
+									'width' : '20',
+									'height': '20',
+									'position': 'absolute',
+									//'top': child.getY(),
+									'left': child.getX(),
+									'z-index': '1000'
+								});
+								child.insert(gearButton, 'before');
+								child.addClass('pure-gearButtonLink-' + gearButtonLink);
+
+								gearButtonLink++;
 
 						});							
 
@@ -403,24 +412,22 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 
 
 	
-	// EditModal View
+	// EditModalShell View
 	// Responsible for displaying the edit modal when the GearEditButton is clicked
 	EditModal = Y.EditModal = Y.Base.create('editModal', Y.View, [], {
 
 		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 
-
 		removeModal: function() {
 			this.remove();
 		},
 
 		// ---- Render View to DOM ---------------------------------------------------------------------------------
-		render: function(parent) {			
-			var head = this.get('container').get('parentNode').one('head'),
-				//modal      = this.get('container').one('.edit-modal'),
-				modal = Y.Node.create('<div class="edit-modal" />'),
-				modalStyle = Y.one('#modal-stylesheet').getHTML();
+		render: function(parent, modalLink) {			
+			var head 		= this.get('container').get('parentNode').one('head'),
+				modal 		= Y.Node.create('<div class="edit-modal ' + modalLink + '" />'),
+				modalStyle 	= Y.one('#modal-stylesheet').getHTML();
 
 				modal.setStyles({
 					'top': parent.getY(),
@@ -431,11 +438,14 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 				parent.insert(modal, 'before');
 
 				head.append(modalStyle);
+
+
 				
 
+
+				
 				// ---- Events -------------------------------------------------------------------------
 				modal.on('mouseleave', this.removeModal);
-				//this.renderModal();
 
 			return this;
 		},
@@ -448,11 +458,64 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 		}
 	});
 
+/*
+
+	// EditModal View
+	// Responsible for displaying the edit modal when the GearEditButton is clicked
+	EditModal = Y.EditModal = Y.Base.create('editModal', Y.View, [], {
+
+		containerTemplate: '<div class="edit-modal"/>',
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		events: {
+			'.alignment > li': {click: 'hello'}
+		},
+
+		hello: function() {
+			console.log('hello');
+		},
+
+		removeModal: function() {
+			this.remove();
+		},
+		
+
+		// ---- Render View to DOM ---------------------------------------------------------------------------------
+		render: function(parent, modalLink) {
+
+			var container = this.get('container'),
+				that = this;
+
+				console.log(container);
+				/*
+				container.all('*').each(function(n) {
+					if(n.hasClass('edit-modal')) {
+						console.log(n);
+					}
+				});
+						
+			
+
+
+				//console.log(this.get('container'));
+
+			return this;
+		}
+
+	}, {
+		ATTRS: {
+			
+			container: { 
+				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
+			}	
+				
+		}
+	});
+*/
 
 
 	// UploadImg View
 	// Responsible for replacing place-holder images with those that are uploaded 
-	UploadImg = Y.UploadImg = Y.Base.create('ddDOM', Y.View, [], {
+	UploadImg = Y.UploadImg = Y.Base.create('uploadImg', Y.View, [], {
 
 		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -516,7 +579,7 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 
 	// ElementSelect View
 	// Responsible for selecting elements to be dragged and dropped into the DOM
-	ElementSelect = Y.ElementSelect = Y.Base.create('ddDOM', Y.View, [], {
+	ElementSelect = Y.ElementSelect = Y.Base.create('textEdit', Y.View, [], {
 
 		template: Y.one('#elementSelect-module').getHTML(),
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -600,11 +663,98 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 		
 		ATTRS: {
 			container: {
-				valueFn: function() { return Y.Node.create('<div id="element-select-sidebar"/>'); }
+				valueFn: function() { return Y.Node.create('<div id="sidebar"><div id="element-select-sidebar"></div></div>'); }
 			}			
 		}
 	});
-	new ElementSelect().render();
+	//new ElementSelect().render();
+	
+
+
+	// TextEdit View
+	// Responsible Editing text in DOM upon double click
+	TextEdit = Y.TextEdit = Y.Base.create('textEdit', Y.View, [], {
+
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		events: {
+			
+		},
+		
+
+		// ---- Render View to DOM --------------------------------------------------------------------------------
+		render: function() {			
+			var container = this.get('container');
+				Y.one(container).all('*').each(function(n) { 
+					if(n.hasClass('pure-edit')) {
+
+						n.on('dblclick', function(e) {
+
+							if( isText(e.target.get('tagName')) ) {
+
+								var target 		= e.target,
+									parentNode 	= e.target.get('parentNode'),
+									text 		= e.target.get('innerText'),
+									className 	= e.target.get('className'),
+									height 		= e.target.get('clientHeight'),
+									width 		= e.target.get('clientWidth'),
+									fontSize 	= e.target.getStyle('fontSize'),
+									fontFamily 	= e.target.getStyle('fontFamily'),
+									fontWeight 	= e.target.getStyle('fontWeight'),
+									padding  	= e.target.getStyle('padding'),
+									margin 		= e.target.getStyle('margin'),
+									changedContent;
+
+									content = '<textarea style="height:' + height + 'px; width:' + width + 'px;" class="' + className + ' current-edit">' + text + '</textarea>';
+
+									e.target.get('parentNode').replaceChild(content, e.target);
+									parentNode.one('.current-edit').setStyles({
+										'backgroundColor': 'transparent',
+										'border': 'none',
+										//'outline': 'none',
+										'margin': margin,
+										'padding': padding,
+										'fontFamily': fontFamily,
+										'fontSize': fontSize,
+										'fontWeight': fontWeight
+									});
+
+									parentNode.one('.current-edit').on('mouseleave', function(e) {
+										changedContent = this.get('value');
+										target.set('innerHTML', changedContent);
+										parentNode.replaceChild(target, this);
+
+									});
+
+							}
+
+						});
+					
+					}
+				});
+
+			function isText(ele) {
+				ele = ele.toLowerCase();
+
+				if(ele === "p" || ele === "a" || ele === "li" || ele === "h1" || ele === "h2" || ele === "h3" || ele === "h4" || ele === "h5" || ele === "h6") {
+					return true;
+				} else {
+					return false;
+				} 
+			}
+
+
+			return this;
+		},
+
+	}, {
+
+		
+		ATTRS: {
+			container: {
+				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
+			}			
+		}
+	});
 	
 
 });
