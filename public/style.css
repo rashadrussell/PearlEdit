@@ -5,6 +5,7 @@ body, html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #fff;
 }
 
 a {
@@ -12,7 +13,7 @@ a {
 }
 
 #header {
-	background: #00132a;
+	background: #050a29;
 	padding: 10px 20px;
 	overflow: hidden;
 }
@@ -39,10 +40,10 @@ a {
 	width: 380px;
 	color: #fff;
 	text-shadow:
-   -1px -1px 0 #ecf1f9,  
-    1px -1px 0 #ecf1f9,
-    -1px 1px 0 #ecf1f9,
-     1px 1px 0 #ecf1f9;
+   -1px -1px 0 #e5ecf5,  
+    1px -1px 0 #e5ecf5,
+    -1px 1px 0 #e5ecf5,
+     1px 1px 0 #e5ecf5;
 	position: absolute;
 	left: 38%;
 	font-size: 50px;
@@ -54,6 +55,47 @@ iframe {
 	position: relative;
 	border: none;
 	z-index: 10;
+}
+
+#sidebar {
+	background: #050a29;
+	position: fixed;
+	padding: 20px 20px 10px 20px;
+	top: 50px;
+	right: 0px;
+	text-align: center;
+	z-index: 2000;
+	letter-spacing: 1px;
+}
+
+#sidebar div {
+	margin-bottom: 10px;
+}
+
+#sidebar .selectForms img {
+	width: 120px;
+	height: 80px;
+}
+
+#sidebar .selectTable img {
+	width: 120px;
+	height: 65px;
+}
+
+#sidebar .selectButtons img {
+	width: 120px;
+	height: 35px;
+}
+
+#sidebar ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#sidebar li, h5 {
+	margin: 0;
+	padding: 0;
 }
 
 #footer {
