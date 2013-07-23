@@ -65,10 +65,21 @@ body .primary-button {
     display: inline-block;
 }
 
-.content .content-ribbon {
-    margin: 3em;
+.content-ribbon {
+    
+}
+
+.content-block {
+    margin: 3em;   
     padding-bottom: 1.5em;
     border-bottom: 1px solid #eee;
+    overflow: hidden;
+}
+
+.content-block-text {
+}
+
+.replacement-image {
 }
 
 .ribbon {

@@ -24,6 +24,9 @@
 
 	</div>
 
+	<div id="sidebar">
+	</div>
+
 	<div id='footer' class='pure-u-1'>
 	</div>
 
@@ -118,7 +121,54 @@
 	</style>
 </script>
 
+<!-- ElementSelect Module Template -->
+<script id="elementSelect-module" type='text/generator-template'>
+
+			<ul>
+				<li>
+					<div class='selectForms'>
+						<h5>Forms</h5>
+						<img class="selectImg" src="/img/formIcon.png" />
+					</div>
+
+					<div class='selectTable'>
+						<h5>Tables</h5>
+						<img class="selectImg" src="/img/tableIcon.png" />
+					</div>
+
+					<div class='selectButtons'>
+						<h5>Buttons</h5>
+						<img class="selectImg" src="/img/buttonIcon.png" />
+					</div>
+				</li> 
+				<li></li> 
+
+			</ul>
+
+</script>
+
 <script src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
 <script src='/app.js'></script>
+<script>
+YUI().use('node', 'transition', 'event', 'event-mouseenter', 'node-scroll-info', function(Y) {
+
+	var body = Y.one('body');
+/*
+	Y.on('mousemove', function(e) {
+		if(e.clientX >= (window.innerWidth - 160)) {
+			Y.one('#sidebar').transition({right: 0});
+		}
+	});
+
+	Y.on('mousemove', function(e) {
+		if(e.clientX < (window.innerWidth - 160)) {
+			Y.one('#sidebar').transition({right: '-160px'});
+		}
+	});
+*/	
+
+});
+
+</script>
 </body>
 </html>

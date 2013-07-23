@@ -33,6 +33,7 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 					Y.one('iframe').setStyles({'backgroundColor': '#fff','height': iframeHeight});
 					new DDDOM().render();
 					new GearEditButton({exists: false, active: false}).render();
+					//new UploadImg().render();
 				});
 
 		},
@@ -103,11 +104,12 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 	// Responsible for establishing a drag & drop environment for DOM elements in the layout
 	DDDOM = Y.DDDOM = Y.Base.create('ddDOM', Y.View, [], {
 
+		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		dragProxy: function(e) {
-			// Get our drag object
+
     		var drag = e.target;
-    		// Set some styles here
+
     		drag.get('node').setStyle('opacity', '.25');
     		drag.get('dragNode').set('innerHTML', drag.get('node').get('innerHTML'));
     		drag.get('dragNode').setStyles({
@@ -117,26 +119,64 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
     		});
 		},
 
-		postProxyStyle: function(e) {
+		resetProxy: function(e) {
 			var drag = e.target;
-    		// Put our styles back
+    		// Reset styles
     		drag.get('node').setStyles({
        			visibility: '',
         		opacity: '1'
     		});
 		},
 
-		adjustShim: function(e) {
+		setShim: function(e) {
     		var drag = e.drag.get('node'),
-        	drop = e.drop.get('node');
-    
-        	console.log(e.drag.target);
-       	 	Y.DD.DDM.swapNode(drag, drop);
+        		drop = e.drop.get('node');
+        		dragPureGroup = drag.ancestor('.pure-group'),
+        		dropPureGroup = drop.ancestor('.pure-group');
+
+
+        	if(!drop.hasClass('placeholder-image') && (dragPureGroup === dropPureGroup)) {
+
+        		Y.DD.DDM.swapNode(drag, drop);
+
+        	} else if(drag.ancestor('#sidebar') && (!drop.ancestor('#sidebar'))) {
+        		console.log(drop.ancestor('#sidebar'));
+        		drop.insert(drag, 'after');
+        	}
 
         	e.drop.sizeShim();
     		
 		},
 
+		// ---- Event Handlers --- Drag & Drop Images ---------------------------------------------------
+/*		dropImg: function(e) {
+			var container = this.get('container');
+			console.log('hi');
+			var reader = new FileReader();
+
+      		reader.onload = (function(theFile) {
+      			console.log(DDDOM.imgUploader.get('fileList')[0].get('file'));
+       			return function(e) {
+
+       				//var span = document.createElement('span');
+       				console.log(theFile);
+       				//container.prepend('<img class="thumb" src="'+ e.target.result+ '" title="'+ escape(theFile.name)+ '" />');
+       				//var repImg = container.one('.placeholder-Image');
+       				//e.drop.get('node').replaceChild(span, repImg);
+       			};
+
+       		})(DDDOM.imgUploader.get('fileList')[0].get('file'));
+
+       		reader.readAsDataURL(DDDOM.imgUploader.get('fileList')[0].get('file'));
+
+		},
+
+		setImgDropTarget: function(e) {
+
+			console.log(e.drop);
+
+		},
+*/
 		// ---- Render View to DOM --------------------------------------------------------------------------------
 		render: function() {			
 			var container = this.get('container');
@@ -144,7 +184,7 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 				Y.one(container).all('*').each(function(n) { 
 
 					if(n.hasClass('pure-edit')) {
-						var drag, drop;	
+						var drag, drop, parentDrop, tempImg;	
 
 						drag = new Y.DD.Drag({
 							node: n
@@ -152,30 +192,42 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 							moveOnEnd: false
 						});
 
-						//console.log(n.get('parentNode').get('parentNode'));
-						//console.log(n);
-						drop = new Y.DD.Drop({
-							node: n
-						});
+						drop = new Y.DD.Drop({ node: n });
+			//			parentDrop = new Y.DD.Drop({ node: n.get('parentNode') });
 						
-						/*
-						n.on('mouseover', function(e) {
-							e.target.setStyle('cursor', 'move');
-						});
-						*/
+			//			n.get('children').each(function(child) {
+			//				if(child.hasClass('placeholder-image')) {
+			//					tempImg = new Y.DD.Drop({ node: child });
+			//				}
+			//			});
+
 					}
 
 				});
 
-				// ---- Events -------------------------------------------------------------------------
+
+				// Is HTML5 Drag & Drop available?
+				// Setting up environment for dragging and dropping images into DOM
+				
+
+				// ---- Element Drag & Drop Events -------------------------------------------------------------------------
 				Y.DD.DDM.on('drag:start', this.dragProxy);
-				Y.DD.DDM.on('drop:over' , this.adjustShim);
-				Y.DD.DDM.on('drag:end'  , this.postProxyStyle);
+				Y.DD.DDM.on('drop:over' , this.setShim);
+				Y.DD.DDM.on('drag:end'  , this.resetProxy);
+
+				// ---- Image Drag & Drop Events ---------------------------------------------------- 
+				//Y.DD.DDM.on('drop:over', this.setImgDropTarget);
+				//DDDOM.imgUploader.on('drop', this.dropImg);
 
 			return this;
 		},
 
 	}, {
+
+		imgUploader: new Y.Uploader(),
+
+		uploadDone: false,
+		
 		ATTRS: {
 			container: {
 				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
@@ -396,5 +448,163 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 		}
 	});
 
+
+
+	// UploadImg View
+	// Responsible for replacing place-holder images with those that are uploaded 
+	UploadImg = Y.UploadImg = Y.Base.create('ddDOM', Y.View, [], {
+
+		
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		events: {
+			'.imgButton': {click: 'uploadImg'}
+		},
+
+		uploadImg: function(e) {
+			console.log(this.n);
+				
+		},
+
+		
+
+		// ---- Render View to DOM --------------------------------------------------------------------------------
+		render: function() {			
+			var container = this.get('container'),
+				that = this;
+
+				Y.one(container).all('*').each(function(n) { 
+					if(n.hasClass('drop-image')) {
+
+						n.append('<input type="file" class="imgInput" accept="image/*" style="display:none">');
+						n.append('<button class="imgButton">Upload Image</button>');
+						
+						n.get('children').each(function(child) {
+							
+							if(child.hasClass('imgButton')) {
+								child.on('click', that.uploadImg.call(this, n));
+
+							}
+
+						});
+					
+					}
+				});
+
+				
+
+				// ---- Element Drag & Drop Events -------------------------------------------------------------------------
+
+
+				// ---- Image Drag & Drop Events ---------------------------------------------------- 
+
+
+			return this;
+		},
+
+	}, {
+
+		
+		ATTRS: {
+			container: {
+				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
+			}			
+		}
+	});
+
+	
+
+
+	// ElementSelect View
+	// Responsible for selecting elements to be dragged and dropped into the DOM
+	ElementSelect = Y.ElementSelect = Y.Base.create('ddDOM', Y.View, [], {
+
+		template: Y.one('#elementSelect-module').getHTML(),
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		events: {
+			
+		},
+
+
+		dragProxy: function(e) {
+
+			var html = '<form class="pure-form"><fieldset class="pure-group"><input type="text" class="pure-input-1-2" placeholder="Username"><input type="text" class="pure-input-1-2" placeholder="Password"><input type="text" class="pure-input-1-2" placeholder="Email"><button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Sign in</button></fieldset></form>';
+    		var drag = e.target;
+
+    		drag.get('node').setStyle('opacity', '.25');
+    		drag.get('dragNode').set('innerHTML', html);
+    		drag.get('dragNode').setStyles({
+        		opacity: '.5',
+       			borderColor: drag.get('node').getStyle('borderColor'),
+       		 	backgroundColor: drag.get('node').getStyle('backgroundColor')
+    		});
+		},
+
+		setProxy: function(e) {
+			var drag = e.target;
+    		// Reset the styles
+    		drag.get('node').setStyles({
+       			visibility: '',
+        		opacity: '1'
+    		});
+
+		},
+
+		resetShim: function(e) {
+    		var drag = e.drag.get('node'),
+        		drop = e.drop.get('node');
+
+        	if(drag.ancestor('#sidebar')) {
+        		console.log(drop.get('children'));
+        	}
+
+        	e.drop.sizeShim();
+
+		},
+		
+
+		// ---- Render View to DOM --------------------------------------------------------------------------------
+		render: function() {			
+			var container = this.get('container');
+				container.setHTML(this.template);
+
+				Y.one('#sidebar').append(container);
+
+			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); 
+				
+
+				Y.one(container).all('*').each(function(n) { 
+
+					if(n.hasClass('selectImg')) {
+						var drag, drop, tempImg;	
+
+						drag = new Y.DD.Drag({
+							node: n
+						}).plug(Y.Plugin.DDProxy, {
+							moveOnEnd: false
+						});
+						
+					}
+
+				});
+
+		//		Y.DD.DDM.on('drag:start', this.dragProxy);
+		//		Y.DD.DDM.on('drop:over' , this.resetShim);
+		//		Y.DD.DDM.on('drag:end'  , this.setProxy);
+
+
+			return this;
+		},
+
+	}, {
+
+		
+		ATTRS: {
+			container: {
+				valueFn: function() { return Y.Node.create('<div id="element-select-sidebar"/>'); }
+			}			
+		}
+	});
+	new ElementSelect().render();
+	
 
 });
