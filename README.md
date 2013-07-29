@@ -22,5 +22,3 @@ Features:
 =========
 
 Drag & Drop elements to adjust layout
-
-Drag & Drop images from desktop into image-placeholders 
