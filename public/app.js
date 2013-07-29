@@ -3,7 +3,12 @@ YUI({
     gallery: 'gallery-2011.09.28-20-06'
 }).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
 
-	var LayoutGenerator, GeneralSettings, DDDOM, GearEditButton, EditModal;
+	var LayoutGenerator, 
+		GeneralSettings, 
+		DDDOM, 
+		GearEditButton, 
+		EditModule, 
+		TextEdit;
 
 	// GeneralSettings View
 	// Responsible for setting styles that will affect the entire HTML DOM such as background-color, font-color, font-size, etc.
@@ -34,9 +39,9 @@ YUI({
 				iframeDocument = Y.one('#layout-iframe').get('contentWindow').get('document');
 				iframeHeight   = iframeDocument.get('height');
 				Y.one('iframe').setStyles({'backgroundColor': '#fff','height': iframeHeight});
+				
 				new DDDOM().render();
 				new GearEditButton({exists: false, active: false}).render();
-				//new UploadImg().render();
 				new TextEdit().render();
 			});
 
@@ -135,6 +140,7 @@ YUI({
 
 		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
+		// Lower opacity for dragged node and its proxy
 		dragProxy: function(e) {
     		var drag = e.target;
 
@@ -148,15 +154,17 @@ YUI({
 
 		},
 
+		// Bring dragged node back to full opacity
 		resetProxy: function(e) {
 			var drag = e.target;
-    		// Reset styles
+
     		drag.get('node').setStyles({
        			visibility: '',
         		opacity: '1'
     		});
 		},
 
+		// On drop event, complete node swap
 		setShim: function(e) {
     		var drag = e.drag.get('node'),
         		drop = e.drop.get('node'),
@@ -228,10 +236,10 @@ YUI({
 	GearEditButton = Y.GearEditButton = Y.Base.create('gearEditButton', Y.View, [], {
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
-		renderModal: function() {
+		renderModule: function() {
 			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
 				linkIndex,
-				modalLink;
+				moduleLink;
 
 			iframeBody.all('*').each(function(n) {
 
@@ -244,8 +252,8 @@ YUI({
 							child.on('click', function(e) {
 
 								linkIndex = e.target.get('className').indexOf('pure-gearButtonLink-'),
-								modalLink = e.target.get('className').substr(linkIndex);
-								new EditModal().render(e.target, modalLink);
+								moduleLink = e.target.get('className').substr(linkIndex);
+								new EditModule().render(e.target, moduleLink);
 
 							});
 						}
@@ -290,7 +298,7 @@ YUI({
 
 				}
 			});
-			this.renderModal();
+			this.renderModule();
 
 			return this;
 		},
@@ -306,35 +314,35 @@ YUI({
 
 
 	
-	// EditModalShell View
-	// Responsible for displaying the edit modal when the GearEditButton is clicked
-	EditModal = Y.EditModal = Y.Base.create('editModal', Y.View, [], {
+	// EditModuleShell View
+	// Responsible for displaying the edit module when the GearEditButton is clicked
+	EditModule = Y.EditModule = Y.Base.create('editModule', Y.View, [], {
 
 		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 
-		removeModal: function() {
+		removeModule: function() {
 			this.remove();
 		},
 
 		// ---- Render View to DOM ---------------------------------------------------------------------------------
-		render: function(parent, modalLink) {			
+		render: function(parent, moduleLink) {			
 			var head 		= this.get('container').get('parentNode').one('head'),
-				modal 		= Y.Node.create('<div class="edit-modal ' + modalLink + '" />'),
-				modalStyle 	= Y.one('#modal-stylesheet').getHTML();
+				module 		= Y.Node.create('<div class="edit-module ' + moduleLink + '" />'),
+				moduleStyle = Y.one('#module-stylesheet').getHTML();
 
-			modal.setStyles({
+			module.setStyles({
 				'top': parent.getY(),
 				'z-index': '1000'
 			});
 
-			modal.setHTML(Y.one('#edit-modal').getHTML());
-			parent.insert(modal, 'before');
+			module.setHTML(Y.one('#edit-module').getHTML());
+			parent.insert(module, 'before');
 
-			head.append(modalStyle);
+			head.append(moduleStyle);
 				
 			// ---- Events -------------------------------------------------------------------------
-			modal.on('mouseleave', this.removeModal);
+			module.on('mouseleave', this.removeModule);
 
 			return this;
 		},

@@ -30,58 +30,58 @@
 <!-- Templates -->
 <!-- General Settings Template -->
 <script id="general-settings" type='text/generator-template'>
-		<select class='layout-selector'>
-			<option value="">Layouts</option>
-			<option value="default">Default</option>
-			<option value="blog">Blog</option>
-			<option value="email">Email</option>
-			<option value="gallery">Gallery</option> 
-  			<option value="marketing">Marketing</option> 			
- 			<option value="pricing">Pricing</option>
-		</select>
+	<select class='layout-selector'>
+		<option value="">Layouts</option>
+		<option value="default">Default</option>
+		<option value="blog">Blog</option>
+		<option value="email">Email</option>
+		<option value="gallery">Gallery</option> 
+  		<option value="marketing">Marketing</option> 			
+ 		<option value="pricing">Pricing</option>
+	</select>
 
-		<select class='font-size-selector'>
-			<option value="12">12</option>
-  			<option value="14">14</option>
-  			<option value="16">16</option>
- 			<option value="18">18</option>
- 			<option value="20">20</option>
-  			<option value="21">21</option>
-  			<option value="22">22</option>
- 			<option value="24">24</option>
- 			<option value="25">25</option>
- 			<option value="26">26</option>
-		</select>
+	<select class='font-size-selector'>
+		<option value="12">12</option>
+  		<option value="14">14</option>
+  		<option value="16">16</option>
+ 		<option value="18">18</option>
+ 		<option value="20">20</option>
+  		<option value="21">21</option>
+  		<option value="22">22</option>
+ 		<option value="24">24</option>
+ 		<option value="25">25</option>
+ 		<option value="26">26</option>
+	</select>
 
-		<select class='font-family-selector'>
-			<option value="arial">Arial</option>
-  			<option value="helvetica">Helvetica</option>
-  			<option value="Lucida Grande">Lucida Grande</option>
-  			<option value="sans">Sans</option>
- 			<option value="sans-serif">Sans-Serif</option>
- 			<option value="times">Times</option>
-		</select>
+	<select class='font-family-selector'>
+		<option value="arial">Arial</option>
+  		<option value="helvetica">Helvetica</option>
+  		<option value="Lucida Grande">Lucida Grande</option>
+  		<option value="sans">Sans</option>
+ 		<option value="sans-serif">Sans-Serif</option>
+ 		<option value="times">Times</option>
+	</select>
 
-		<label for="display-edit-button-textbox">Show Edit</label>
-		<input id="display-edit-button-textbox" class="display-edit-buttons" type="checkbox" />
+	<label for="display-edit-button-textbox">Show Edit</label>
+	<input id="display-edit-button-textbox" class="display-edit-buttons" type="checkbox" />
 </script>
 
-<!-- Edit Modal Template -->
-<script id="edit-modal" type='text/generator-template'>
+<!-- Edit Module Template -->
+<script id="edit-module" type='text/generator-template'>
 
-			<ul class=".alignment">
-				<li>align:</li> 
-				<li><a href="#" value="left">left</a></li> 
-				<li><a href="#" value="center">center</a></li> 
-				<li><a href="#" value="right">right</a></li>
-			</ul>
+	<ul class=".alignment">
+		<li>align:</li> 
+		<li><a href="#" value="left">left</a></li> 
+		<li><a href="#" value="center">center</a></li> 
+		<li><a href="#" value="right">right</a></li>
+	</ul>
 
 </script>
 
-<!-- Modal Stylsheet-->
-<script id="modal-stylesheet" type="text/generator-template">
-	<style class="modal-stylesheet">
-		.edit-modal {
+<!-- Module Stylsheet-->
+<script id="module-stylesheet" type="text/generator-template">
+	<style class="module-stylesheet">
+		.edit-module {
 			width: 300px;
 			background: #375a84;
 			position: absolute;
@@ -94,12 +94,12 @@
 			color: #fff;
 		}
 
-		.edit-modal a {
+		.edit-module a {
 			text-decoration: none;
 			color: #fff;
 		}
 
-		.edit-modal a:hover {
+		.edit-module a:hover {
 			text-decoration: underline;
 		}
 
