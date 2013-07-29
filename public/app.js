@@ -1,4 +1,7 @@
-YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'uploader', function(Y) {
+YUI({
+    //Last Gallery Build of this module
+    gallery: 'gallery-2011.09.28-20-06'
+}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'uploader', 'gallery-colorpicker', function(Y) {
 
 	var LayoutGenerator, GeneralSettings, DDDOM, GearEditButton, EditModal;
 
@@ -12,7 +15,9 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 			'.layout-selector': {change: 'changeLayout'},
 			'.font-size-selector': {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
-			'.display-edit-buttons': {click: 'displayEditButtons'}
+			'.display-edit-buttons': {click: 'displayEditButtons'},
+			'#bg-color-picker': {click: 'changeBgColor'},
+			'#font-color-picker': {click: 'changeFontColor'},
 		},
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -78,6 +83,113 @@ YUI().use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-dro
 
 				}
 			});
+		},
+
+		changeBgColor: function(e) {
+			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
+				colorDiv   = Y.Node.create('<div id="bg-color-picker-container"></div>'),
+				colorpicker,
+				hex;
+
+			Y.one('body').prepend(colorDiv);
+
+			colorpicker = new Y.ColorPicker();
+
+			colorpicker.render("#bg-color-picker-container");
+			
+			e.halt();
+
+			hex = colorpicker.get('hex');
+			
+			colorDiv.on('mouseleave', function(e) {
+				this.remove();
+			});
+			
+
+			Y.one('#squareCanvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+			
+			Y.one('.yui3-colorpicker-hbar > canvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+			
+			Y.one('.yui3-colorpicker-sbar > canvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+
+			
+			Y.one('.yui3-colorpicker-lbar > canvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+
+		},
+
+		changeFontColor: function(e) {
+			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
+				colorDiv   = Y.Node.create('<div id="font-color-picker-container"></div>'),
+				colorpicker,
+				hex;
+
+			Y.one('body').prepend(colorDiv);
+
+			colorpicker = new Y.ColorPicker();
+
+			colorpicker.render("#font-color-picker-container");
+			
+			e.halt();
+
+			hex = colorpicker.get('hex');
+
+			colorDiv.on('mouseleave', function(e) {
+				this.remove();
+			});
+
+			Y.one('#squareCanvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
+					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+			
+			Y.one('.yui3-colorpicker-hbar > canvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
+					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+			
+			Y.one('.yui3-colorpicker-sbar > canvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
+					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+
+			
+			Y.one('.yui3-colorpicker-lbar > canvas').after('mousedown', function(e) {
+				this.on('mousemove', function(e) {
+					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
+					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
+				});
+			});
+			
+		},
+
+		removeColorPicker: function(e) {
+			console.log('hi');
 		},
 
 		// ---- Render View to DOM --------------------------------------------------------------------------------
