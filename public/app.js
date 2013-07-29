@@ -59,34 +59,52 @@ YUI({
 		displayEditButtons: function(e) {
 			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
 
-			iframeBody.all('*').each(function(n) {
+			console.log(e.target.get('checked'));
+			if( e.target.get('checked') ) {
 
-				if(n.hasClass('pure-edit')) {
+				iframeBody.all('*').each(function(n) {
 
-					n.get('children').each(function(child) {
+					if(n.hasClass('pure-edit')) {
 
-						if(child.hasClass('gearButton')) {
+						n.get('children').each(function(child) {
 
-							if(child.getStyle('display') === 'block') {
+							if(child.hasClass('gearButton')) {
 
-								child.setStyles({
-									'display': 'none'
-								});
-
-							} else {
-
-								child.setStyles({
-									'display': 'block'
-								});
+									child.setStyles({
+										'display': 'block'
+									});
 
 							}
-								
-						}
 
-					});
+						});
 
-				}
-			});
+					}
+				});
+
+			}
+
+			if( !e.target.get('checked') ) {
+
+				iframeBody.all('*').each(function(n) {
+
+					if(n.hasClass('pure-edit')) {
+
+						n.get('children').each(function(child) {
+
+							if(child.hasClass('gearButton')) {
+
+									child.setStyles({
+										'display': 'none'
+									});
+									
+							}
+
+						});
+
+					}
+				});
+
+			}
 		},
 
 		

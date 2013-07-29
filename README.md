@@ -22,3 +22,13 @@ Features:
 =========
 
 Drag & Drop elements to adjust layout
+
+
+Instructions
+============
+
+First, select layout. 
+
+- Drag & Drop Elements: Click and hold elements for about 3 seconds to initiate drag & drop
+
+- Editing Text: Triple-click on text
