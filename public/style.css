@@ -18,13 +18,6 @@ a {
 	overflow: hidden;
 }
 
-.logoImg {
-	width: 30px;
-	height: 30px;
-	margin: -5px 2px 0px 0px;
-	float: left;
-}
-
 .logo {
 	float: left;
 	margin: 0;
@@ -55,19 +48,6 @@ a {
 	left: 38%;
 	font-size: 50px;
 	z-index: 0;
-}
-
-#bg-color-picker, #font-color-picker {
-	width: 30px;
-	height: 18px;
-	background: #fff;
-	border: solid 3px #eee;
-}
-
-#bg-color-picker-container, #font-color-picker-container {
-	position: absolute;
-	overflow: hidden;
-	z-index: 5000;
 }
 
 iframe {

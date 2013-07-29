@@ -16,8 +16,6 @@ YUI({
 			'.font-size-selector': {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
 			'.display-edit-buttons': {click: 'displayEditButtons'},
-			'#bg-color-picker': {click: 'changeBgColor'},
-			'#font-color-picker': {click: 'changeFontColor'},
 		},
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -85,113 +83,7 @@ YUI({
 			});
 		},
 
-		changeBgColor: function(e) {
-			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
-				colorDiv   = Y.Node.create('<div id="bg-color-picker-container"></div>'),
-				colorpicker,
-				hex;
-
-			Y.one('body').prepend(colorDiv);
-
-			colorpicker = new Y.ColorPicker();
-
-			colorpicker.render("#bg-color-picker-container");
-			
-			e.halt();
-
-			hex = colorpicker.get('hex');
-			
-			colorDiv.on('mouseleave', function(e) {
-				this.remove();
-			});
-			
-
-			Y.one('#squareCanvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-			
-			Y.one('.yui3-colorpicker-hbar > canvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-			
-			Y.one('.yui3-colorpicker-sbar > canvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-
-			
-			Y.one('.yui3-colorpicker-lbar > canvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-					Y.one('#bg-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-
-		},
-
-		changeFontColor: function(e) {
-			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
-				colorDiv   = Y.Node.create('<div id="font-color-picker-container"></div>'),
-				colorpicker,
-				hex;
-
-			Y.one('body').prepend(colorDiv);
-
-			colorpicker = new Y.ColorPicker();
-
-			colorpicker.render("#font-color-picker-container");
-			
-			e.halt();
-
-			hex = colorpicker.get('hex');
-
-			colorDiv.on('mouseleave', function(e) {
-				this.remove();
-			});
-
-			Y.one('#squareCanvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
-					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-			
-			Y.one('.yui3-colorpicker-hbar > canvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
-					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-			
-			Y.one('.yui3-colorpicker-sbar > canvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
-					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-
-			
-			Y.one('.yui3-colorpicker-lbar > canvas').after('mousedown', function(e) {
-				this.on('mousemove', function(e) {
-					iframeBody.setStyle('color', '#' + colorpicker.get('hex'));
-					Y.one('#font-color-picker').setStyle('backgroundColor', '#' + colorpicker.get('hex'));
-				});
-			});
-			
-		},
-
-		removeColorPicker: function(e) {
-			console.log('hi');
-		},
-
+		
 		// ---- Render View to DOM --------------------------------------------------------------------------------
 		render: function() {			
 			var container = this.get('container');
