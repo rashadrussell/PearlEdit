@@ -18,6 +18,13 @@ a {
 	overflow: hidden;
 }
 
+.logoImg {
+	width: 23px;
+	height: 23px;
+	margin: -2px 2px 0 0;
+	float: left;
+}
+
 .logo {
 	float: left;
 	margin: 0;

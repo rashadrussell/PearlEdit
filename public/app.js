@@ -380,16 +380,16 @@ YUI({
 						if( isText(e.target.get('tagName')) ) {
 
 							var target 		= e.target,
-								parentNode 	= e.target.get('parentNode'),
-								text 		= e.target.get('innerText'),
-								className 	= e.target.get('className'),
-								height 		= e.target.get('clientHeight'),
-								width 		= e.target.get('clientWidth'),
-								fontSize 	= e.target.getStyle('fontSize'),
-								fontFamily 	= e.target.getStyle('fontFamily'),
-								fontWeight 	= e.target.getStyle('fontWeight'),
-								padding  	= e.target.getStyle('padding'),
-								margin 		= e.target.getStyle('margin'),
+								parentNode 	= target.get('parentNode'),
+								text 		= target.get('innerText'),
+								className 	= target.get('className'),
+								height 		= target.get('clientHeight'),
+								width 		= target.get('clientWidth'),
+								fontSize 	= target.getStyle('fontSize'),
+								fontFamily 	= target.getStyle('fontFamily'),
+								fontWeight 	= target.getStyle('fontWeight'),
+								padding  	= target.getStyle('padding'),
+								margin 		= target.getStyle('margin'),
 								changedContent;
 
 								content = '<textarea style="height:' + height + 'px; width:' + width + 'px;" class="' + className + ' current-edit">' + text + '</textarea>';
