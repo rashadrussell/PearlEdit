@@ -4,7 +4,7 @@ body, html {
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Lucida Grande", helvetica, arial, sans-serif;
   color: #fff;
 }
 
@@ -14,8 +14,15 @@ a {
 
 #header {
 	background: #050a29;
-	padding: 10px 20px;
+	padding: 10px 20px 5px 20px;
 	overflow: hidden;
+}
+
+.logoImg {
+	width: 23px;
+	height: 23px;
+	margin: -2px 2px 0 0;
+	float: left;
 }
 
 .logo {
@@ -55,47 +62,6 @@ iframe {
 	position: relative;
 	border: none;
 	z-index: 10;
-}
-
-#sidebar {
-	background: #050a29;
-	position: fixed;
-	padding: 20px 20px 10px 20px;
-	top: 50px;
-	right: 0px;
-	text-align: center;
-	z-index: 2000;
-	letter-spacing: 1px;
-}
-
-#sidebar div {
-	margin-bottom: 10px;
-}
-
-#sidebar .selectForms img {
-	width: 120px;
-	height: 80px;
-}
-
-#sidebar .selectTable img {
-	width: 120px;
-	height: 65px;
-}
-
-#sidebar .selectButtons img {
-	width: 120px;
-	height: 35px;
-}
-
-#sidebar ul {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-
-#sidebar li, h5 {
-	margin: 0;
-	padding: 0;
 }
 
 #footer {
