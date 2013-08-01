@@ -9,6 +9,7 @@ YUI({
 		GearEditButton, 
 		EditModule, 
 		TextEdit;
+		// Hello World
 
 	// GeneralSettings View
 	// Responsible for setting styles that will affect the entire HTML DOM such as background-color, font-color, font-size, etc.
