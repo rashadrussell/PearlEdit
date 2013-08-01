@@ -13,7 +13,7 @@ a {
 }
 
 #header {
-	background: #050a29;
+	background: #161C33;
 	padding: 10px 20px 5px 20px;
 	overflow: hidden;
 }
@@ -62,8 +62,4 @@ iframe {
 	position: relative;
 	border: none;
 	z-index: 10;
-}
-
-#footer {
-
 }

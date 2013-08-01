@@ -442,7 +442,6 @@ YUI({
 				valueFn: function() { return Y.one('#layout-iframe').get('contentWindow').get('document').get('body'); }
 			}			
 		}
-	});
-	
+	});	
 
 });
