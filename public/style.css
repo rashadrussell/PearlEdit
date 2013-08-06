@@ -65,68 +65,44 @@ iframe {
 }
 
 #element-module {
-	width: 100px;
 	background: #050a29;
-	padding: 5px;
-	margin: 0 auto;
-	overflow: hidden;
+	padding: 0 5px;
+	position: fixed;
+	right: 0;
+	top: 50px;
+	z-index: 10;
 }
 
 #element-module .element-list {
-	width: 100px;
 	list-style-type: none;
+	margin: 0;
 	padding: 0;
-	margin: 0 auto;
-}
-
-#element-module .element-list ul {
-	width: 211px;
-	margin-left: 100px;
-	background: #050a29;
-	overflow: hidden;
-	list-style: none;
-	text-align: right;
-}
-
-#element-module .element-list ul li {
-	display: inline-block;
 }
 
 .elementItem {
+
 }
 
 .element-list img {
-	width: 100px;
-	height: 80px;
+	width: 32px;
+	height: 40px;
 	margin: 0 auto;
 }
 
-.element-module-icon, .submenu {
-	float: left;
-}
-
 .element-module-icon {
-	position: relative;
-	z-index: 1;  
-}
-
-.submenu {
-	position: absolute;
-	margin: -5px 0 0 0;
-	padding: 5px 5px 0 0;
-	z-index: 0;
-}
-
-.submenu li {
-	margin-left: 5px;
-}
-
-.submenu li img {
-	margin-bottom: 2px;
+ 
 }
 
 .elementItem img {
-	margin-bottom: 10px;
+	margin: 5px 0;
+}
+
+.displayContainer {
+	width: 100px;
+	height: 100px;
+	background: #000;
+	position: absolute;
+	z-index: 10;
 }
 
 

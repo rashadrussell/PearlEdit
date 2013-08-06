@@ -455,7 +455,7 @@ YUI({
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		events: {
-			
+			'.element-list > li': {click: 'displayElements'}
 		},
 
 		initializer: function() {
@@ -469,10 +469,25 @@ YUI({
 
 			container.setHTML(this.template);
 			
-			console.log( container.one('.submenu') );
-
 			return this;
 		},
+
+		displayElements: function(e) {
+			var target = e.target,
+				displayContainer = Y.Node.create('<div class="displayContainer" />');
+				
+			displayContainer.setStyles({
+				top: target.getY() - 5,
+				left: target.get('parentNode').getX() - 110
+			});
+			
+			Y.one('body').append(displayContainer);
+
+			console.log(target.getX());
+
+		}
+
+
 
 	}, {
 
