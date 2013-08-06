@@ -473,17 +473,20 @@ YUI({
 		},
 
 		displayElements: function(e) {
-			var target = e.target,
-				displayContainer = Y.Node.create('<div class="displayContainer" />');
-				
-			displayContainer.setStyles({
-				top: target.getY() - 5,
-				left: target.get('parentNode').getX() - 110
-			});
+			var target = e.target;
+//				formImages = Y.one('#form-images').getHTML(),
+//				displayContainer = Y.Node.create('<div class="displayContainer" />');
 			
-			Y.one('body').append(displayContainer);
+//			displayContainer.setHTML(formImages);
 
-			console.log(target.getX());
+//			displayContainer.setStyles({
+//				top: target.getY() - 5,
+//				left: target.get('parentNode').getX() - 210
+//			});
+			
+//			Y.one('body').append(displayContainer);
+
+			new ElementDisplay({target: target}).render();
 
 		}
 
@@ -499,5 +502,126 @@ YUI({
 		}
 	});
 	new ElementModule().render();
+
+
+
+
+	// Element Display View
+	// Responsible dragging and dropping UI elements in the DOM
+	ElementDisplay = Y.ElementDisplay = Y.Base.create('elementDisplay', Y.View, [], {
+
+		containerTemplate: '<div class="displayContainer" />',
+
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		events: {
+			'.elementImg': {click: 'logIt'}
+		},
+
+		logIt: function(e) {
+			console.log(e.target);
+		},
+
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		// Lower opacity for dragged node and its proxy
+		dragProxy: function(e) {
+    		var drag = e.target,
+    			classIndex = drag.get('node').get('className').indexOf('form'),
+				formType   = drag.get('node').get('className').substr(classIndex, '5'),
+				form      = Y.one('#' + formType);
+
+    		drag.get('dragNode').set('innerHTML', form.getHTML());
+    		console.log(drag.get('dragNode').one('form').setStyle('width', '300px'));
+    		drag.get('dragNode').setStyles({
+        		width: '300px',
+        		height: '200px',
+       			borderColor: drag.get('node').getStyle('borderColor')
+    		});
+
+		},
+
+		// Bring dragged node back to full opacity
+		resetProxy: function(e) {
+			var drag = e.target;
+
+    		drag.get('node').setStyles({
+       			visibility: '',
+        		opacity: '1'
+    		});
+		},
+
+		// On drop event, complete node swap
+		setShim: function(e) {
+    		var drag = e.drag.get('node'),
+        		drop = e.drop.get('node'),
+        		dragPureGroup = drag.ancestor('.pure-group'),
+        		dropPureGroup = drop.ancestor('.pure-group');
+
+
+        	if(!drop.hasClass('placeholder-image') && (dragPureGroup === dropPureGroup)) {
+
+        		Y.DD.DDM.swapNode(drag, drop);
+
+        	} else if(drag.ancestor('#sidebar') && (!drop.ancestor('#sidebar'))) {
+
+        		drop.insert(drag, 'after');
+
+        	}
+
+        	e.drop.sizeShim();
+    		
+		},
+
+		initializer: function() {
+			var formImages = Y.one('#form-images').getHTML(),
+				container  = this.get('container'),
+				target     = this.get('target');
+
+			container.setHTML(formImages);
+			
+			Y.one('body').append(container);
+
+			container.setStyles({
+				top:  target.getY() - 5,
+				left: target.get('parentNode').getX() - 210
+			});
+
+			container.all('img').each(function(n) {
+
+				new Y.DD.Drag({
+
+					node: n
+
+				}).plug(Y.Plugin.DDProxy, {
+
+					moveOnEnd: false
+
+				});
+
+			});
+
+			// ---- Element Drag & Drop Events -------------------------------------------------------------------------
+			Y.DD.DDM.on('drag:start', this.dragProxy);
+//			Y.DD.DDM.on('drop:over' , this.setShim);
+			Y.DD.DDM.on('drag:end'  , this.resetProxy);
+
+		},
+
+		// ---- Render View to DOM ---------------------------------------------------------------------------------
+		render: function() {			
+			
+			
+			
+			return this;
+		},
+
+
+	}, {
+		
+		ATTRS: {
+	
+		}
+
+	});
+
 
 });
