@@ -64,6 +64,69 @@ iframe {
 	z-index: 10;
 }
 
-#footer {
-
+#element-module {
+	width: 100px;
+	background: #050a29;
+	padding: 5px;
+	margin: 0 auto;
+	overflow: hidden;
 }
+
+#element-module .element-list {
+	width: 100px;
+	list-style-type: none;
+	padding: 0;
+	margin: 0 auto;
+}
+
+#element-module .element-list ul {
+	width: 211px;
+	margin-left: 100px;
+	background: #050a29;
+	overflow: hidden;
+	list-style: none;
+	text-align: right;
+}
+
+#element-module .element-list ul li {
+	display: inline-block;
+}
+
+.elementItem {
+}
+
+.element-list img {
+	width: 100px;
+	height: 80px;
+	margin: 0 auto;
+}
+
+.element-module-icon, .submenu {
+	float: left;
+}
+
+.element-module-icon {
+	position: relative;
+	z-index: 1;  
+}
+
+.submenu {
+	position: absolute;
+	margin: -5px 0 0 0;
+	padding: 5px 5px 0 0;
+	z-index: 0;
+}
+
+.submenu li {
+	margin-left: 5px;
+}
+
+.submenu li img {
+	margin-bottom: 2px;
+}
+
+.elementItem img {
+	margin-bottom: 10px;
+}
+
+

@@ -445,4 +445,44 @@ YUI({
 	});
 	
 
+
+
+	// Element Module View
+	// Responsible dragging and dropping UI elements in the DOM
+	ElementModule = Y.ElementModule = Y.Base.create('elementModule', Y.View, [], {
+
+		template: Y.one('#element-module-template').getHTML(),
+
+		// ---- Event Handlers -------------------------------------------------------------------------------------
+		events: {
+			
+		},
+
+		initializer: function() {
+
+		},
+
+		// ---- Render View to DOM ---------------------------------------------------------------------------------
+		render: function() {			
+			
+			var container = this.get('container');
+
+			container.setHTML(this.template);
+			
+			console.log( container.one('.submenu') );
+
+			return this;
+		},
+
+	}, {
+
+		
+		ATTRS: {
+			container: {
+				valueFn: function() { return Y.one('#element-module'); }
+			}			
+		}
+	});
+	new ElementModule().render();
+
 });
