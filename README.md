@@ -5,6 +5,8 @@ Layout Generator is a live WYSIWYG website generator that allows for in browser 
 
 Use Chrome(recommended) or FireFox for best suppport. 
 
+`node server`
+
 API's
 ===============
 YUI - http://yuilibrary.com
