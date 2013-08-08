@@ -51,7 +51,7 @@ YUI.add('text-edit', function(Y) {
 
 								parentNode.one('.current-edit').on('mouseleave', function(e) {
 
-									changedContent = this.get('value');
+									changedContent = Y.Escape.html( this.get('value') );
 									target.set('innerHTML', changedContent);
 									parentNode.replaceChild(target, this);
 
@@ -92,7 +92,7 @@ YUI.add('text-edit', function(Y) {
 }, '@VERSION@', {
 
 	requires: [
-
+		'escape'
 	]
 
 });
