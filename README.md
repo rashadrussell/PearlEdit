@@ -45,3 +45,11 @@ First, select layout.
 - Drag & Drop Elements: Click and hold elements for about 3 seconds to initiate drag & drop
 
 - Editing Text: Triple-click on text
+
+
+Features in Progress(See branches)
+----------------------------------
+
+- Color Picker: Allows users to change the background and font color of elements
+- DD Elements: Drag & Drop additional UI Elements into DOM such as forms, tables, buttons, slideshows, etx.
+- DD Images: Allows users to drag & drop images from a desktop into DOM, and replace filler images
