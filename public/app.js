@@ -1,7 +1,7 @@
 YUI({
     //Last Gallery Build of this module
     gallery: 'gallery-2011.09.28-20-06'
-}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'dd-scroll', 'node-scroll-info', function(Y) {
+}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'dd-scroll', 'node-scroll-info', 'escape', function(Y) {
 
 	var LayoutGenerator, 
 		GeneralSettings, 
@@ -410,7 +410,7 @@ YUI({
 
 								parentNode.one('.current-edit').on('mouseleave', function(e) {
 
-									changedContent = this.get('value');
+									changedContent = Y.Escape.html( this.get('value') );
 									target.set('innerHTML', changedContent);
 									parentNode.replaceChild(target, this);
 
