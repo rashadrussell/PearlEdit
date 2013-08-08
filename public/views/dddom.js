@@ -4,7 +4,7 @@ YUI.add('dddom', function(Y) {
 
 	// DDDOM View
 	// Responsible for establishing a drag & drop environment for DOM elements in the layout
-	DDDOM = Y.DDDOM = Y.Base.create('ddDOM', Y.View, [], {
+	DDDOM = Y.Base.create('ddDOM', Y.View, [], {
 
 		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -97,10 +97,12 @@ YUI.add('dddom', function(Y) {
 		}
 	});
 
+	Y.namespace('Pearl').DDDOM = DDDOM;
+
 }, '@VERSION', {
 
 	requires: [
-
+		'view'
 	]
 
 });

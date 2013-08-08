@@ -4,7 +4,7 @@ YUI.add('text-edit', function(Y) {
 
 	// TextEdit View
 	// Responsible Editing text in DOM upon double click
-	TextEdit = Y.TextEdit = Y.Base.create('textEdit', Y.View, [], {
+	TextEdit = Y.Base.create('textEdit', Y.View, [], {
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		events: {
@@ -88,10 +88,12 @@ YUI.add('text-edit', function(Y) {
 		}
 	});
 
+	Y.namespace('Pearl').TextEdit = TextEdit;
 
 }, '@VERSION@', {
 
 	requires: [
+		'view',
 		'escape'
 	]
 

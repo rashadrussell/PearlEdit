@@ -4,7 +4,7 @@ YUI.add('general-settings', function(Y) {
 
 	// GeneralSettings View
 	// Responsible for setting styles that will affect the entire HTML DOM such as background-color, font-color, font-size, etc.
-	GeneralSettings = Y.GeneralSettings = Y.Base.create('generalSettings', Y.View, [], {
+	GeneralSettings = Y.Base.create('generalSettings', Y.View, [], {
 
 		template: Y.one('#general-settings').getHTML(),
 
@@ -13,6 +13,20 @@ YUI.add('general-settings', function(Y) {
 			'.font-size-selector': {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
 			'.display-edit-buttons': {click: 'displayEditButtons'},
+		},
+
+		initializer: function() {
+
+		},
+
+		// ---- Render View to DOM --------------------------------------------------------------------------------
+		render: function() {			
+			var container = this.get('container');
+
+			container.setHTML(this.template);
+			Y.one('#header').append(container);
+
+			return this;
 		},
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -102,18 +116,8 @@ YUI.add('general-settings', function(Y) {
 				});
 
 			}
-		},
+		}
 		
-		// ---- Render View to DOM --------------------------------------------------------------------------------
-		render: function() {			
-			var container = this.get('container');
-
-			container.setHTML(this.template);
-			Y.one('#header').append(container);
-
-			return this;
-		},
-
 	}, {
 		ATTRS: {
 			container: {
@@ -127,7 +131,7 @@ YUI.add('general-settings', function(Y) {
 }, '@VERSION', {
 
 	requires: [
-
+		'view'
 	]
 
 });

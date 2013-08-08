@@ -4,7 +4,7 @@ YUI.add('gear-edit-button', function(Y) {
 
 	// GearEditButton View
 	// Responsible appending an edit button to pure-edit each DOM element in order to reveal EditModule
-	GearEditButton = Y.GearEditButton = Y.Base.create('gearEditButton', Y.View, [], {
+	GearEditButton = Y.Base.create('gearEditButton', Y.View, [], {
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		renderModule: function() {
@@ -81,12 +81,13 @@ YUI.add('gear-edit-button', function(Y) {
 			}			
 		}
 	});
-
+	
+	Y.namespace('Pearl').GearEditButton = GearEditButton;
 
 }, '@VERSION', {
 
 	requires: [
-
+		'view'
 	]
 
 });

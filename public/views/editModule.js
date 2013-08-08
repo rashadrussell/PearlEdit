@@ -1,11 +1,10 @@
 YUI.add('edit-module', function(Y) {
 
-
-
+	var EditModule;
 
 	// EditModuleShell View
 	// Responsible for displaying the edit module when the GearEditButton is clicked
-	EditModule = Y.EditModule = Y.Base.create('editModule', Y.View, [], {
+	EditModule = Y.Base.create('editModule', Y.View, [], {
 
 		
 		// ---- Event Handlers -------------------------------------------------------------------------------------
@@ -44,10 +43,12 @@ YUI.add('edit-module', function(Y) {
 		}
 	});
 
+	Y.namespace('Pearl').EditModule = EditModule;
+
 }, '@VERSION@' {
 
 	requires: [
-	
+		'view'
 	]
 
 });
