@@ -5,7 +5,7 @@ Layout Generator is a live WYSIWYG website generator that allows for in browser 
 
 Use Chrome(recommended) or FireFox for best suppport. 
 
-`node server`
+Start Application: `node server`
 
 API's
 ===============
@@ -24,6 +24,12 @@ Features:
 =========
 
 Drag & Drop elements to adjust layout
+
+Live Text Editing
+
+Color Management
+
+Font Editing
 
 
 Instructions
