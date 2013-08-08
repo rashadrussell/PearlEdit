@@ -5,7 +5,7 @@ Layout Generator is a live WYSIWYG website generator that allows for in browser 
 
 Use Chrome(recommended) or FireFox for best suppport. 
 
-**Start Application:** `**node server**`
+**Start Application:** **`node server`**
 
 
 API's
