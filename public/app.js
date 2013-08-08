@@ -1,7 +1,7 @@
 YUI({
     //Last Gallery Build of this module
     gallery: 'gallery-2011.09.28-20-06'
-}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
+}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'dd-scroll', 'node-scroll-info', function(Y) {
 
 	var LayoutGenerator, 
 		GeneralSettings, 
@@ -171,18 +171,21 @@ YUI({
         		dragPureGroup = drag.ancestor('.pure-group'),
         		dropPureGroup = drop.ancestor('.pure-group');
 
+        	if(!drag.ancestor('.displayContainer')) {
 
-        	if(!drop.hasClass('placeholder-image') && (dragPureGroup === dropPureGroup)) {
+        		if(!drop.hasClass('placeholder-image') && (dragPureGroup === dropPureGroup)) {
 
-        		Y.DD.DDM.swapNode(drag, drop);
+        			Y.DD.DDM.swapNode(drag, drop);
 
-        	} else if(drag.ancestor('#sidebar') && (!drop.ancestor('#sidebar'))) {
+        		} else if(drag.ancestor('#sidebar') && (!drop.ancestor('#sidebar'))) {
 
-        		drop.insert(drag, 'after');
+        			drop.insert(drag, 'after');
+
+        		}
+
+        		e.drop.sizeShim();
 
         	}
-
-        	e.drop.sizeShim();
     		
 		},
 
@@ -213,9 +216,9 @@ YUI({
 			});
 
 			// ---- Element Drag & Drop Events -------------------------------------------------------------------------
-			Y.DD.DDM.on('drag:start', this.dragProxy);
-			Y.DD.DDM.on('drop:over' , this.setShim);
-			Y.DD.DDM.on('drag:end'  , this.resetProxy);
+			Y.DD.DDM.on('drag:start', this.dragProxy, this.get('container'));
+			Y.DD.DDM.on('drop:over' , this.setShim,  this.get('container'));
+			Y.DD.DDM.on('drag:end'  , this.resetProxy,  this.get('container'));
 
 			return this;
 		},
@@ -514,67 +517,101 @@ YUI({
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		events: {
-			'.elementImg': {click: 'logIt'}
+			'.elementImg': {click: 'logIt'},
+			'.delete': {click: 'deleteContainer'}
 		},
 
-		logIt: function(e) {
-			console.log(e.target);
+		deleteContainer: function(e) {
+			this.remove();
 		},
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		// Lower opacity for dragged node and its proxy
 		dragProxy: function(e) {
-    		var drag = e.target,
+    		var drag       = e.target,
     			classIndex = drag.get('node').get('className').indexOf('form'),
-				formType   = drag.get('node').get('className').substr(classIndex, '5'),
-				form      = Y.one('#' + formType);
+				formClass  = drag.get('node').get('className').substring(classIndex),
+				endIndex   = formClass.indexOf(' '),
+				formClass  = formClass.substring(0, endIndex),
+				form       = Y.one('#' + formClass);
 
-    		drag.get('dragNode').set('innerHTML', form.getHTML());
-    		console.log(drag.get('dragNode').one('form').setStyle('width', '300px'));
-    		drag.get('dragNode').setStyles({
-        		width: '300px',
-        		height: '200px',
-       			borderColor: drag.get('node').getStyle('borderColor')
-    		});
+			this.set('proxyHTML', form.getHTML());
 
-		},
+			if(drag.get('dragNode').ancestor('.displayContainer')) {
+				drag.get('dragNode').set('innerHTML', form.getHTML());
 
-		// Bring dragged node back to full opacity
-		resetProxy: function(e) {
-			var drag = e.target;
+    			drag.get('dragNode').setStyles({
+        			width: '300px',
+        			height: '200px',
+       				borderColor: drag.get('node').getStyle('borderColor')
+    			});
 
-    		drag.get('node').setStyles({
-       			visibility: '',
-        		opacity: '1'
-    		});
+    		}
+
 		},
 
 		// On drop event, complete node swap
-		setShim: function(e) {
-    		var drag = e.drag.get('node'),
+		appendElement: function(e) {
+    		var classIndex,
+    			targetClass,
+    			endIndex,
+    			denominator,
+    			that = this,
+    			drag = e.drag.get('node'),
         		drop = e.drop.get('node'),
-        		dragPureGroup = drag.ancestor('.pure-group'),
-        		dropPureGroup = drop.ancestor('.pure-group');
+        		dropArea = drop.ancestor('.pure-g-r');
+        		
+        	if(drag.ancestor('.displayContainer')) {
+
+        		if(!drop.hasClass('placeholder-image') && drop.ancestor('.pure-group')) {
+
+        			dropArea.append(this.get('proxyHTML'));
+        			dropAreaSize = dropArea.get('children').size();
+
+        			dropArea.get('children').each(function(child) {
+
+        				targetClass  = child.get('className');
+
+        				//console.log(classIndex);
+        				//targetClass = child.substring(classIndex);
+        				console.log(dropArea);
+        				endIndex    = targetClass.indexOf(' ');
+        				targetClass = targetClass.substring(0, endIndex);
+
+        				denominator = targetClass.substring(targetClass.length-1);
+
+        				child.removeClass(targetClass);
+
+        				if(denominator) {
+        					child.addClass('pure-u-1-' + ++denominator);
+        					that.set('denominator', denominator);
+        					//console.log(this.get('denominator'));
+        				} else {
+        					child.addClass('pure-u-1-' + that.get('denominator'));
+        				}
+        				
+        				//console.log(dropArea);
+
+        			});
 
 
-        	if(!drop.hasClass('placeholder-image') && (dragPureGroup === dropPureGroup)) {
+        		}
 
-        		Y.DD.DDM.swapNode(drag, drop);
-
-        	} else if(drag.ancestor('#sidebar') && (!drop.ancestor('#sidebar'))) {
-
-        		drop.insert(drag, 'after');
+        		e.drop.sizeShim();
 
         	}
 
-        	e.drop.sizeShim();
+
+
+        	
     		
 		},
 
 		initializer: function() {
 			var formImages = Y.one('#form-images').getHTML(),
 				container  = this.get('container'),
-				target     = this.get('target');
+				target     = this.get('target'),
+				body       = Y.one('body');
 
 			container.setHTML(formImages);
 			
@@ -582,7 +619,17 @@ YUI({
 
 			container.setStyles({
 				top:  target.getY() - 5,
-				left: target.get('parentNode').getX() - 210
+				left: target.get('parentNode').getX() - 230
+			});
+
+			body.plug(Y.Plugin.ScrollInfo, {
+				scrollDelay: 1
+			});
+
+			body.scrollInfo.on('scroll', function (e) {
+    			container.setStyles({
+    				top: target.getY() - 5,
+    			});
 			});
 
 			container.all('img').each(function(n) {
@@ -595,14 +642,15 @@ YUI({
 
 					moveOnEnd: false
 
-				});
+				});//.plug(Y.Plugin.DDWinScroll);
 
 			});
 
+			container.append('<img src="./img/delete.png" class="delete" />');
+
 			// ---- Element Drag & Drop Events -------------------------------------------------------------------------
 			Y.DD.DDM.on('drag:start', this.dragProxy);
-//			Y.DD.DDM.on('drop:over' , this.setShim);
-			Y.DD.DDM.on('drag:end'  , this.resetProxy);
+			Y.DD.DDM.on('drop:hit', this.appendElement);
 
 		},
 
@@ -618,7 +666,15 @@ YUI({
 	}, {
 		
 		ATTRS: {
-	
+			
+			proxyHTML: {
+				value: ''
+			},
+
+			denominator: {
+				value: ''
+			}
+
 		}
 
 	});
