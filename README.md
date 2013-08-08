@@ -32,6 +32,8 @@ Color Management
 
 Font Editing
 
+Responsive Themes
+
 
 Instructions
 ------------
