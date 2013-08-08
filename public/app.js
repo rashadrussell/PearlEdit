@@ -1,7 +1,7 @@
 YUI({
     //Last Gallery Build of this module
     gallery: 'gallery-2011.09.28-20-06'
-}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'uploader', 'gallery-colorpicker', 'color', function(Y) {
+}).use('node', 'view', 'event-mouseenter','dd-constrain', 'dd-proxy', 'dd-drop', 'uploader', 'gallery-colorpicker', 'color', 'escape', function(Y) {
 
 	var LayoutGenerator, GeneralSettings, DDDOM, GearEditButton, EditModal;
 
