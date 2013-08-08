@@ -20,8 +20,6 @@ Express - http://expressjs.com
 
 Pure CSS - http://www.purecss.io
 
-HTML5 File Reader
-
 HTML5 Drag & Drop
 
 
