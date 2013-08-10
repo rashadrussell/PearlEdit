@@ -1,6 +1,9 @@
 YUI.add('general-settings', function(Y) {
 
-	var GeneralSettings;
+	var GeneralSettings,
+		GearEditButton = Y.Pearl.GearEditButton,
+		TextEdit = Y.Pearl.TextEdit,
+		DDDOM = Y.Pearl.DDDOM;
 
 	// GeneralSettings View
 	// Responsible for setting styles that will affect the entire HTML DOM such as background-color, font-color, font-size, etc.
@@ -32,7 +35,7 @@ YUI.add('general-settings', function(Y) {
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		changeLayout: function(e) {
 			var layout = e.target.get('value'),
-				path   = '/layouts/' + layout,
+				path   = '/views/layouts/' + layout,
 				iframeDocument,
 				iframeHeight;
 
@@ -46,8 +49,8 @@ YUI.add('general-settings', function(Y) {
 				iframeHeight   = iframeDocument.get('height');
 				Y.one('iframe').setStyles({'backgroundColor': '#fff','height': iframeHeight});
 				
-				new DDDOM().render();
 				new GearEditButton({exists: false, active: false}).render();
+				new DDDOM().render();
 				new TextEdit().render();
 			});
 
@@ -70,7 +73,6 @@ YUI.add('general-settings', function(Y) {
 		displayEditButtons: function(e) {
 			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
 
-			console.log(e.target.get('checked'));
 			if( e.target.get('checked') ) {
 
 				iframeBody.all('*').each(function(n) {
@@ -128,10 +130,12 @@ YUI.add('general-settings', function(Y) {
 
 	Y.namespace('Pearl').GeneralSettings = GeneralSettings;
 
-}, '@VERSION', {
+}, '@VERSION@', {
 
 	requires: [
-		'view'
+		'gear-edit-button',
+		'dd-dom',
+		'text-edit'
 	]
 
 });

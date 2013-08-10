@@ -94,7 +94,9 @@ YUI.add('text-edit', function(Y) {
 
 	requires: [
 		'view',
-		'escape'
+		'node',
+		'escape',
+		'event-mouseenter'
 	]
 
 });

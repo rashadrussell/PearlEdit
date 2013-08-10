@@ -1,4 +1,4 @@
-YUI.add('dddom', function(Y) {
+YUI.add('dd-dom', function(Y) {
 
 	var DDDOM;
 
@@ -99,10 +99,14 @@ YUI.add('dddom', function(Y) {
 
 	Y.namespace('Pearl').DDDOM = DDDOM;
 
-}, '@VERSION', {
+}, '@VERSION@', {
 
 	requires: [
-		'view'
+		'view',
+		'node',
+		'dd-drop',
+		'dd-proxy',
+		'dd-constrain'
 	]
 
 });

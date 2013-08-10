@@ -45,10 +45,12 @@ YUI.add('edit-module', function(Y) {
 
 	Y.namespace('Pearl').EditModule = EditModule;
 
-}, '@VERSION@' {
+}, '@VERSION@', {
 
 	requires: [
-		'view'
+		'view',
+		'node',
+		'event-mouseenter'
 	]
 
 });

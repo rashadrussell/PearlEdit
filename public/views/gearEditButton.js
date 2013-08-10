@@ -1,6 +1,7 @@
 YUI.add('gear-edit-button', function(Y) {
 
-	var GearEditButton;
+	var GearEditButton,
+		EditModule = Y.Pearl.EditModule;
 
 	// GearEditButton View
 	// Responsible appending an edit button to pure-edit each DOM element in order to reveal EditModule
@@ -48,7 +49,7 @@ YUI.add('gear-edit-button', function(Y) {
 				if(n.hasClass('pure-edit')) {
 
 					n.get('children').each(function(child) {
-							
+
 						var gearButton = Y.Node.create('<img class="gearButton ' + 'pure-gearButtonLink-' + gearButtonLink + '" src="/img/gear.png" alt="edit" />');
 							
 							gearButton.setStyles({
@@ -84,10 +85,13 @@ YUI.add('gear-edit-button', function(Y) {
 	
 	Y.namespace('Pearl').GearEditButton = GearEditButton;
 
-}, '@VERSION', {
+}, '@VERSION@', {
 
 	requires: [
-		'view'
+		'view',
+		'node',
+		'edit-module',
+		'event-mouseenter'
 	]
 
 });
