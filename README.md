@@ -1,7 +1,7 @@
-LayoutGenerator
+PearlEdit
 ===============
 
-Layout Generator is a live WYSIWYG website generator that allows for in browser customization and guranteeing responsiveness. 
+PearlEdit is a live WYSIWYG layout generator that allows for in browser customization and guranteeing responsiveness. 
 
 Use Chrome(recommended) or FireFox for best suppport. 
 
@@ -50,6 +50,7 @@ First, select layout.
 Features in Progress(See branches)
 ----------------------------------
 
-- Color Picker: Allows users to change the background and font color of elements
-- DD Elements: Drag & Drop additional UI Elements into DOM such as forms, tables, buttons, slideshows, etx.
-- DD Images: Allows users to drag & drop images from a desktop into DOM, and replace filler images
+- Color Picker: Allows users to change the background and font color of elements.
+- DD Elements: Drag & Drop additional UI Elements into DOM such as forms, tables, buttons, slideshows, etc.
+- DD Images: Allows users to drag & drop images from a desktop into DOM, and replace filler images.
+

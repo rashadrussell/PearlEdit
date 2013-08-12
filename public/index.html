@@ -3,7 +3,8 @@
 <head>
 	<title>Pearl</title>
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
-	<link rel='stylesheet' type='text/css' href='/style.css' />
+	<link rel='stylesheet' type='text/css' href='./style.css' />
+	<link rel="icon" type="image/png" href="./img/pearlLogo.png" />
 </head>
 <body>
 
@@ -154,7 +155,81 @@
 
 
 <script src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
-<script src='/app.js'></script>
+<script src='./app.js'></script>
+<script>
+
+	YUI({
+
+		debug: true,
+		combine: false,
+		groups: {
+			'pearl': {
+				base: './',
+				modules: {
+
+					'pearl-app': {
+						path: 'app.js'
+					},
+
+					'general-settings': {
+						path: 'views/generalSettings.js',
+						requires: [
+							'node',
+							'gear-edit-button',
+							'dd-dom',
+							'text-edit'
+						]
+					},
+
+					'dd-dom': {
+						path: 'views/dddom.js',
+						requires: [
+							'view',
+							'node',
+							'dd-drop',
+							'dd-proxy',
+							'dd-constrain'
+						]
+					},
+
+					'gear-edit-button': {
+						path: 'views/gearEditButton.js',
+						requires: [
+							'view',
+							'node',
+							'edit-module',
+							'event-mouseenter'
+						]
+					},
+
+					'edit-module': {
+						path: 'views/editModule.js',
+						requires: [
+							'view',
+							'node',
+							'event-mouseenter'
+						]
+					},
+
+					'text-edit': {
+						path: 'views/textEdit.js',
+						requires: [
+							'view',
+							'node',
+							'event-mouseenter'
+						]
+					}
+				}
+			}
+		}
+
+	}).use('pearl-app', function(Y) {
+
+		new Y.Pearl.PearlApp();
+
+	});
+
+</script>
 
 </body>
 </html>
