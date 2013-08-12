@@ -6,9 +6,48 @@ YUI.add('dd-dom', function(Y) {
 	// Responsible for establishing a drag & drop environment for DOM elements in the layout
 	DDDOM = Y.Base.create('ddDOM', Y.View, [], {
 
-		
-		// ---- Event Handlers -------------------------------------------------------------------------------------
-		// Lower opacity for dragged node and its proxy
+		// ---- Initialize Drag & Drop Environment ----------------------------------------------------------------
+		initializer: function() {
+
+			var container = this.get('container');
+
+			container.all('.pure-edit').each(function(n) { 
+
+				var drag, drop, parentDrop, tempImg;	
+
+				drag = new Y.DD.Drag({
+
+					node: n
+
+				}).plug(Y.Plugin.DDProxy, {
+
+					moveOnEnd: false
+
+				});
+
+				drop = new Y.DD.Drop({ node: n });
+
+
+			});
+
+			// ---- Set Drag & Drop Event Listeners --------------------------------------------------------------------
+			Y.DD.DDM.on('drag:start', this.dragProxy);
+			Y.DD.DDM.on('drop:over' , this.setShim);
+			Y.DD.DDM.on('drag:end'  , this.resetProxy);
+
+		},
+
+		// ---- Render View to DOM --------------------------------------------------------------------------------
+		render: function() {			
+			
+
+			return this;
+		},
+
+
+		// ---- Event Functions -----------------------------------------------------------------------------------
+
+		// ---- Lower opacity for dragged node and its proxy ------------------------------------------------------
 		dragProxy: function(e) {
     		var drag = e.target;
 
@@ -22,7 +61,7 @@ YUI.add('dd-dom', function(Y) {
 
 		},
 
-		// Bring dragged node back to full opacity
+		// ---- Bring dragged node back to full opacity -----------------------------------------------------------
 		resetProxy: function(e) {
 			var drag = e.target;
 
@@ -32,7 +71,7 @@ YUI.add('dd-dom', function(Y) {
     		});
 		},
 
-		// On drop event, complete node swap
+		//---- On drop event, complete node swap ------------------------------------------------------------------
 		setShim: function(e) {
     		var drag = e.drag.get('node'),
         		drop = e.drop.get('node'),
@@ -52,41 +91,7 @@ YUI.add('dd-dom', function(Y) {
 
         	e.drop.sizeShim();
     		
-		},
-
-		// ---- Render View to DOM --------------------------------------------------------------------------------
-		render: function() {			
-			var container = this.get('container');
-
-			Y.one(container).all('*').each(function(n) { 
-
-				if(n.hasClass('pure-edit')) {
-
-					var drag, drop, parentDrop, tempImg;	
-
-					drag = new Y.DD.Drag({
-
-						node: n
-
-					}).plug(Y.Plugin.DDProxy, {
-
-						moveOnEnd: false
-
-					});
-
-					drop = new Y.DD.Drop({ node: n });
-
-				}
-
-			});
-
-			// ---- Element Drag & Drop Events -------------------------------------------------------------------------
-			Y.DD.DDM.on('drag:start', this.dragProxy);
-			Y.DD.DDM.on('drop:over' , this.setShim);
-			Y.DD.DDM.on('drag:end'  , this.resetProxy);
-
-			return this;
-		},
+		}
 
 	}, {
 

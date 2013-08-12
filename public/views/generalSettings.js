@@ -12,22 +12,21 @@ YUI.add('general-settings', function(Y) {
 		template: Y.one('#general-settings').getHTML(),
 
 		events: {
-			'.layout-selector': {change: 'changeLayout'},
-			'.font-size-selector': {change: 'changeFontSize'},
+			'.layout-selector'     : {change: 'changeLayout'},
+			'.font-size-selector'  : {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
-			'.display-edit-buttons': {click: 'displayEditButtons'},
+			'.display-edit-buttons': {click : 'displayEditButtons'},
 		},
 
 		initializer: function() {
-
-		},
-
-		// ---- Render View to DOM --------------------------------------------------------------------------------
-		render: function() {			
 			var container = this.get('container');
 
 			container.setHTML(this.template);
 			Y.one('#header').append(container);
+		},
+
+		// ---- Render View to DOM --------------------------------------------------------------------------------
+		render: function() {			
 
 			return this;
 		},
@@ -49,8 +48,8 @@ YUI.add('general-settings', function(Y) {
 				iframeHeight   = iframeDocument.get('height');
 				Y.one('iframe').setStyles({'backgroundColor': '#fff','height': iframeHeight});
 				
-				new GearEditButton({exists: false, active: false}).render();
-				new DDDOM().render();
+				new GearEditButton({exists: false, active: false});
+				new DDDOM();
 				new TextEdit().render();
 			});
 
