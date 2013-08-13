@@ -20,20 +20,20 @@ YUI.add('gear-edit-button', function(Y) {
 				n.get('children').each(function(child) {
 
 					gearButton = Y.Node.create('<img class="gearButton ' + 'pure-gearButtonLink-' + gearButtonLink + '" src="/img/gear.png" alt="edit" />');
-							
-						gearButton.setStyles({
-							'display' : 'none',
-							'width'   : '20',
-							'height'  : '20',
-							'position': 'absolute',
-							'left'    : child.getX(),
-							'z-index' : '1000'
-						});
+						console.log(child.getStyle('paddingLeft'));
+					gearButton.setStyles({
+						'display' : 'none',
+						'width'   : '20',
+						'height'  : '20',
+						'position': 'absolute',
+						'left'    : child.getX(),
+						'z-index' : '1000'
+					});
 
-						child.insert(gearButton, 'before');
-						child.addClass('pure-gearButtonLink-' + gearButtonLink);
+					child.insert(gearButton, 'before');
+					child.addClass('pure-gearButtonLink-' + gearButtonLink);
 
-						gearButtonLink++;
+					gearButtonLink++;
 
 				});							
 
