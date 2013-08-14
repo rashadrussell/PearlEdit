@@ -16,7 +16,7 @@ YUI.add('text-edit', function(Y) {
 		render: function() {			
 			var container = this.get('container');
 
-			container.all('.pure-edit').each(function(n) { 
+			container.all('.pearl-edit').each(function(n) { 
 
 				n.on('dblclick', function(e) {
 
@@ -35,11 +35,11 @@ YUI.add('text-edit', function(Y) {
 							margin 		= target.getStyle('margin'),
 							changedContent;
 
-						content = '<textarea style="height:' + height + 'px; width:' + width + 'px;" class="' + className + ' current-edit">' + text + '</textarea>';
+						content = '<textarea style="height:' + height + 'px; width:' + width + 'px;" class="' + className + ' pearl-current-edit">' + text + '</textarea>';
 
 						target.get('parentNode').replaceChild(content, e.target);
 
-						parentNode.one('.current-edit').setStyles({
+						parentNode.one('.pearl-current-edit').setStyles({
 							'backgroundColor': 'transparent',
 							'border': 'none',
 							'margin': margin,
@@ -49,7 +49,7 @@ YUI.add('text-edit', function(Y) {
 							'fontWeight': fontWeight
 						});
 
-						parentNode.one('.current-edit').on('mouseleave', function(e) {
+						parentNode.one('.pearl-current-edit').on('mouseleave', function(e) {
 
 							changedContent = Y.Escape.html( this.get('value') );
 							target.set('innerHTML', changedContent);

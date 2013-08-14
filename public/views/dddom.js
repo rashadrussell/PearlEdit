@@ -11,13 +11,13 @@ YUI.add('dd-dom', function(Y) {
 
 			var dd = new Y.DD.Delegate({
 		        container: this.get('container'),
-		        nodes: '.pure-edit',
+		        nodes: '.pearl-edit',
 		        dragConfig: {
 		            plugins: [{
 		                fn: Y.Plugin.DDConstrainedToAncestor,
 		                cfg: {
 		                    constrain: null,
-		                    constrain2ancestor: '.pure-group'
+		                    constrain2ancestor: '.pearl-group'
 		                }
 		            },
 	                {
@@ -27,7 +27,7 @@ YUI.add('dd-dom', function(Y) {
 		        }
 		    });
 
-			this.get('container').all('.pure-edit').plug(Y.Plugin.Drop);
+			this.get('container').all('.pearl-edit').plug(Y.Plugin.Drop);
 
 			// ---- Set Drag & Drop Event Listeners --------------------------------------------------------------------
 			Y.DD.DDM.on('drag:start', this.dragProxy);
@@ -74,8 +74,8 @@ YUI.add('dd-dom', function(Y) {
 		setShim: function(e) {
     		var drag = e.drag.get('node'),
         		drop = e.drop.get('node'),
-        		dragPureGroup = drag.ancestor('.pure-group'),
-        		dropPureGroup = drop.ancestor('.pure-group');
+        		dragPureGroup = drag.ancestor('.pearl-group'),
+        		dropPureGroup = drop.ancestor('.pearl-group');
 
 
         	if(!drop.hasClass('placeholder-image') && (dragPureGroup === dropPureGroup)) {

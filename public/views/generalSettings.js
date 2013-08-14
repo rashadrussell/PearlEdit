@@ -76,7 +76,7 @@ YUI.add('general-settings', function(Y) {
 
 				iframeBody.all('*').each(function(n) {
 
-					if(n.hasClass('pure-edit')) {
+					if(n.hasClass('pearl-edit')) {
 
 						n.get('children').each(function(child) {
 
@@ -99,7 +99,7 @@ YUI.add('general-settings', function(Y) {
 
 				iframeBody.all('*').each(function(n) {
 
-					if(n.hasClass('pure-edit')) {
+					if(n.hasClass('pearl-edit')) {
 
 						n.get('children').each(function(child) {
 

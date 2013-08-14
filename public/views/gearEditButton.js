@@ -4,7 +4,7 @@ YUI.add('gear-edit-button', function(Y) {
 		EditModule = Y.Pearl.EditModule;
 
 	// GearEditButton View
-	// Responsible appending an edit button to pure-edit each DOM element in order to reveal EditModule
+	// Responsible appending an edit button to pearl-edit each DOM element in order to reveal EditModule
 	GearEditButton = Y.Base.create('gearEditButton', Y.View, [], {
 		
 		// ---- Initialize Gear Buttons -----------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ YUI.add('gear-edit-button', function(Y) {
 				container      = this.get('container'),
 				gearButtonLink = 1;
 
-			container.all('.pure-edit').each(function(n) {
+			container.all('.pearl-edit').each(function(n) {
 
 				n.get('children').each(function(child) {
 
@@ -55,7 +55,7 @@ YUI.add('gear-edit-button', function(Y) {
 				moduleLink,
 				container  = this.get('container');
 				
-			container.all('.pure-edit').each(function(n) {
+			container.all('.pearl-edit').each(function(n) {
 
 				n.get('children').each(function(child) {
 
