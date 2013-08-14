@@ -2,8 +2,8 @@ YUI.add('general-settings', function(Y) {
 
 	var GeneralSettings,
 		GearEditButton = Y.Pearl.GearEditButton,
-		TextEdit = Y.Pearl.TextEdit,
-		DDDOM = Y.Pearl.DDDOM;
+		TextEdit       = Y.Pearl.TextEdit,
+		DDDOM          = Y.Pearl.DDDOM;
 
 	// GeneralSettings View
 	// Responsible for setting styles that will affect the entire HTML DOM such as background-color, font-color, font-size, etc.
@@ -33,97 +33,122 @@ YUI.add('general-settings', function(Y) {
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		changeLayout: function(e) {
-			var layout = e.target.get('value'),
-				path   = '/views/layouts/' + layout,
-				iframeDocument,
-				iframeHeight;
 
-			Y.one('.choose-layout-banner').setStyle('display', 'none');
+			var banner = Y.one('.choose-layout-banner'),
+				layout = e.target.get('value'),
+				path   = '/views/layouts/' + layout,
+				that   = this,				
+				iframeDocument,
+				iframeHeight,
+				layoutBody,
+				textEdit,
+				gearEdit,
+				iframe,
+				dddom;
+				
+			banner.setStyle('display', 'none');
 			Y.one('#layout-iframe').setAttribute('src', path);
 
-			Y.one('iframe').after('load', function(e) {
-				e.stopPropagation();
+			iframe = Y.one('#layout-iframe');
 
-				iframeDocument = Y.one('#layout-iframe').get('contentWindow').get('document');
-				iframeHeight   = iframeDocument.get('height');
-				Y.one('iframe').setStyles({'backgroundColor': '#fff','height': iframeHeight});
+			if(layout !== '') {
+
+				iframe.setStyle('display', 'block');
+
+				iframe.after('load', function(e) {
+					e.stopPropagation();
+
+					iframeDocument = iframe.get('contentWindow').get('document');
+					iframeHeight   = iframeDocument.get('height');
+					iframe.setStyles({
+						'backgroundColor': '#fff',
+						'height': iframeHeight
+					});
+
+					that.set('layoutBody', iframeDocument.one('body'));
 				
-				new GearEditButton({exists: false, active: false});
-				new DDDOM();
-				new TextEdit().render();
-			});
+					dddom    = new DDDOM();
+					textEdit = new TextEdit().render();
+					gearEdit = new GearEditButton({exists: false, active: false});
+				});
+
+			} else {
+
+				iframe.removeAttribute('src');
+				
+				iframe.setStyle('display', 'none');
+
+				banner.setStyle('display', 'block');
+
+			}
 
 		},
 
 		changeFontSize: function(e) {
-			var size       = e.target.get('value') + 'px',
-				iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+			var size = e.target.get('value') + 'px';
 				
-			iframeBody.setStyle('fontSize', size);
+			this.get('layoutBody').setStyle('fontSize', size);
 		},
 
 		changeFontFamily: function(e) {
-			var fontFamily = e.target.get('value'),
-				iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+			var fontFamily = e.target.get('value');
 
-				iframeBody.setStyle('fontFamily', fontFamily);
+			this.get('layoutBody').setStyle('fontFamily', fontFamily);
 		},
 
 		displayEditButtons: function(e) {
-			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body');
+			
+			var layoutBody = this.get('layoutBody');
 
 			if( e.target.get('checked') ) {
 
-				iframeBody.all('*').each(function(n) {
+				layoutBody.all('.pearl-edit').each(function(n) {
+					n.get('children').each(function(child) {
 
-					if(n.hasClass('pearl-edit')) {
+						if(child.hasClass('gearButton')) {
 
-						n.get('children').each(function(child) {
+							child.setStyles({
+								'display': 'block'
+							});
 
-							if(child.hasClass('gearButton')) {
+						}
 
-									child.setStyles({
-										'display': 'block'
-									});
-
-							}
-
-						});
-
-					}
+					});
 				});
 
 			}
 
 			if( !e.target.get('checked') ) {
 
-				iframeBody.all('*').each(function(n) {
+				layoutBody.all('.pearl-edit').each(function(n) {
+					n.get('children').each(function(child) {
 
-					if(n.hasClass('pearl-edit')) {
+						if(child.hasClass('gearButton')) {
 
-						n.get('children').each(function(child) {
-
-							if(child.hasClass('gearButton')) {
-
-									child.setStyles({
-										'display': 'none'
-									});
+							child.setStyles({
+								'display': 'none'
+							});
 									
-							}
+						}
 
-						});
-
-					}
+					});
 				});
 
 			}
+			
 		}
 		
 	}, {
 		ATTRS: {
+
 			container: {
 				valueFn: function() { return Y.Node.create('<div id="general-settings-bar"/>'); }
-			}			
+			},
+
+			layoutBody: {
+				value: ''
+			}
+
 		}
 	});
 
