@@ -8,7 +8,7 @@ YUI.add('dd-dom', function(Y) {
 
 		// ---- Initialize Drag & Drop Environment ----------------------------------------------------------------
 		initializer: function() {
-
+/*
 			var container = this.get('container');
 
 			container.all('.pure-edit').each(function(n) { 
@@ -29,6 +29,29 @@ YUI.add('dd-dom', function(Y) {
 
 
 			});
+*/
+
+
+
+			var dd = new Y.DD.Delegate({
+		        container: this.get('container'),
+		        nodes: '.pure-edit',
+		        dragConfig: {
+		            plugins: [{
+		                fn: Y.Plugin.DDConstrainedToAncestor,
+		                cfg: {
+		                    constrain: null,
+		                    constrain2ancestor: '.pure-group'
+		                }
+		            },
+	                {
+	                	fn: Y.Plugin.DDProxy,
+	                	cfg: { moveOnEnd: false }
+	                }]
+		        }
+		    });
+
+			this.get('container').all('.pure-edit').plug(Y.Plugin.Drop);
 
 			// ---- Set Drag & Drop Event Listeners --------------------------------------------------------------------
 			Y.DD.DDM.on('drag:start', this.dragProxy);
@@ -109,9 +132,8 @@ YUI.add('dd-dom', function(Y) {
 	requires: [
 		'view',
 		'node',
-		'dd-drop',
-		'dd-proxy',
-		'dd-constrain'
+		'dd-multi-container'
+
 	]
 
 });

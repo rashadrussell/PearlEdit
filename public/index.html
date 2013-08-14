@@ -162,6 +162,7 @@
 
 		debug: true,
 		combine: false,
+		filter: 'raw',
 		groups: {
 			'pearl': {
 				base: './',
@@ -186,9 +187,18 @@
 						requires: [
 							'view',
 							'node',
-							'dd-drop',
-							'dd-proxy',
-							'dd-constrain'
+							'dd',
+							'dd-delegate',
+							'dd-multi-container'
+						]
+					},
+
+					'dd-multi-container' : {
+						path: 'views/plugins/dd-multi-container.js',
+						requires: [
+							'dd',
+							'base-build',
+							'dd-delegate'
 						]
 					},
 
@@ -219,11 +229,12 @@
 							'event-mouseenter'
 						]
 					}
+
 				}
 			}
 		}
 
-	}).use('pearl-app', function(Y) {
+	}).use('dd-delegate', 'pearl-app', function(Y) {
 
 		new Y.Pearl.PearlApp();
 

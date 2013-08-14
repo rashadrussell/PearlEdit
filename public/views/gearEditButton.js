@@ -20,7 +20,7 @@ YUI.add('gear-edit-button', function(Y) {
 				n.get('children').each(function(child) {
 
 					gearButton = Y.Node.create('<img class="gearButton ' + 'pure-gearButtonLink-' + gearButtonLink + '" src="/img/gear.png" alt="edit" />');
-						console.log(child.getStyle('paddingLeft'));
+
 					gearButton.setStyles({
 						'display' : 'none',
 						'width'   : '20',
