@@ -8,30 +8,6 @@ YUI.add('dd-dom', function(Y) {
 
 		// ---- Initialize Drag & Drop Environment ----------------------------------------------------------------
 		initializer: function() {
-/*
-			var container = this.get('container');
-
-			container.all('.pure-edit').each(function(n) { 
-
-				var drag, drop, parentDrop, tempImg;	
-
-				drag = new Y.DD.Drag({
-
-					node: n
-
-				}).plug(Y.Plugin.DDProxy, {
-
-					moveOnEnd: false
-
-				});
-
-				drop = new Y.DD.Drop({ node: n });
-
-
-			});
-*/
-
-
 
 			var dd = new Y.DD.Delegate({
 		        container: this.get('container'),
