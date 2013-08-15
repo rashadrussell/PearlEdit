@@ -31,12 +31,7 @@
 <script id="general-settings" type='text/generator-template'>
 	<select class='layout-selector'>
 		<option value="">Layouts</option>
-		<option value="default">Default</option>
-		<option value="blog">Blog</option>
-		<option value="email">Email</option>
-		<option value="gallery">Gallery</option> 
-  		<option value="marketing">Marketing</option> 			
- 		<option value="pricing">Pricing</option>
+		<option value="marketing">Marketing</option>
 	</select>
 
 	<select class='font-size-selector'>
@@ -159,8 +154,6 @@
 <script>
 
 	YUI({
-
-		debug: true,
 		combine: false,
 		groups: {
 			'pearl': {
@@ -186,9 +179,18 @@
 						requires: [
 							'view',
 							'node',
-							'dd-drop',
-							'dd-proxy',
-							'dd-constrain'
+							'dd',
+							'dd-delegate',
+							'dd-multi-container'
+						]
+					},
+
+					'dd-multi-container' : {
+						path: 'views/plugins/dd-multi-container.js',
+						requires: [
+							'dd',
+							'base-build',
+							'dd-delegate'
 						]
 					},
 
@@ -219,11 +221,12 @@
 							'event-mouseenter'
 						]
 					}
+
 				}
 			}
 		}
 
-	}).use('pearl-app', function(Y) {
+	}).use('dd-delegate', 'pearl-app', function(Y) {
 
 		new Y.Pearl.PearlApp();
 

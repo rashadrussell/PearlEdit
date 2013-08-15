@@ -4,76 +4,76 @@ YUI.add('gear-edit-button', function(Y) {
 		EditModule = Y.Pearl.EditModule;
 
 	// GearEditButton View
-	// Responsible appending an edit button to pure-edit each DOM element in order to reveal EditModule
+	// Responsible appending an edit button to pearl-edit each DOM element in order to reveal EditModule
 	GearEditButton = Y.Base.create('gearEditButton', Y.View, [], {
+		
+		// ---- Initialize Gear Buttons -----------------------------------------------------------------------------------
+		initializer: function() {
 
-		// ---- Event Handlers -------------------------------------------------------------------------------------
-		renderModule: function() {
-			var iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
-				linkIndex,
-				moduleLink;
+			var gearButton,
+				that           = this,
+				container      = this.get('container'),
+				gearButtonLink = 1;
 
-			iframeBody.all('*').each(function(n) {
+			container.all('.pearl-edit').each(function(n) {
 
-				if(n.hasClass('pure-edit')) {
+				n.get('children').each(function(child) {
 
-					n.get('children').each(function(child) {
+					gearButton = Y.Node.create('<img class="gearButton ' + 'pure-gearButtonLink-' + gearButtonLink + '" src="/img/gear.png" alt="edit" />');
 
-						if(child.hasClass('gearButton')) {
-
-							child.on('click', function(e) {
-
-								linkIndex = e.target.get('className').indexOf('pure-gearButtonLink-'),
-								moduleLink = e.target.get('className').substr(linkIndex);
-								new EditModule().render(e.target, moduleLink);
-
-							});
-						}
-
+					gearButton.setStyles({
+						'display' : 'none',
+						'width'   : '20',
+						'height'  : '20',
+						'position': 'absolute',
+						'left'    : child.getX(),
+						'z-index' : '1000'
 					});
 
-				}
+					child.insert(gearButton, 'before');
+					child.addClass('pure-gearButtonLink-' + gearButtonLink);
+
+					gearButtonLink++;
+
+				});							
 
 			});
+
+			this.renderModule();
+
 		},
 
 		// ---- Render View to DOM ---------------------------------------------------------------------------------
 		render: function() {			
-			var container = this.get('container'),
-				iframeBody = Y.one('#layout-iframe').get('contentWindow').get('document').get('body'),
-				gearButtonLink = 1,
-				that = this;
-				
-			iframeBody.all('*').each(function(n) {
-
-				if(n.hasClass('pure-edit')) {
-
-					n.get('children').each(function(child) {
-
-						var gearButton = Y.Node.create('<img class="gearButton ' + 'pure-gearButtonLink-' + gearButtonLink + '" src="/img/gear.png" alt="edit" />');
-							
-							gearButton.setStyles({
-								'display': 'none',
-								'width' : '20',
-								'height': '20',
-								'position': 'absolute',
-								'left': child.getX(),
-								'z-index': '1000'
-							});
-
-							child.insert(gearButton, 'before');
-							child.addClass('pure-gearButtonLink-' + gearButtonLink);
-
-							gearButtonLink++;
-
-					});							
-
-				}
-			});
-			this.renderModule();
+			
 
 			return this;
 		},
+
+		renderModule: function() {
+			var linkIndex,
+				moduleLink,
+				container  = this.get('container');
+				
+			container.all('.pearl-edit').each(function(n) {
+
+				n.get('children').each(function(child) {
+
+					if(child.hasClass('gearButton')) {
+
+						child.on('click', function(e) {
+
+							linkIndex = e.target.get('className').indexOf('pure-gearButtonLink-'),
+							moduleLink = e.target.get('className').substr(linkIndex);
+							new EditModule().render(e.target, moduleLink);
+
+						});
+					}
+
+				});	
+
+			});
+		}
 
 	}, {
 		ATTRS: {

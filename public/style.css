@@ -40,6 +40,7 @@ a {
 }
 
 #content {
+	height: 150px;
 	background: #f7faff;
 }
 

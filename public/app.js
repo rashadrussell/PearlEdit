@@ -3,7 +3,7 @@ YUI.add('pearl-app', function(Y) {
 	var PearlApp,
 		GeneralSettings = Y.Pearl.GeneralSettings;
 
-	PearlApp = Y.Base.create('pearApp', Y.App, [], {
+	PearlApp = Y.Base.create('pearlApp', Y.App, [], {
 
 		events: {
 

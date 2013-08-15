@@ -16,53 +16,52 @@ YUI.add('text-edit', function(Y) {
 		render: function() {			
 			var container = this.get('container');
 
-			Y.one(container).all('*').each(function(n) { 
-				if(n.hasClass('pure-edit')) {
+			container.all('.pearl-edit').each(function(n) { 
 
-					n.on('dblclick', function(e) {
+				n.on('dblclick', function(e) {
 
-						if( isText(e.target.get('tagName')) ) {
+					if( isText(e.target.get('tagName')) ) {
 
-							var target 		= e.target,
-								parentNode 	= target.get('parentNode'),
-								text 		= target.get('innerText'),
-								className 	= target.get('className'),
-								height 		= target.get('clientHeight'),
-								width 		= target.get('clientWidth'),
-								fontSize 	= target.getStyle('fontSize'),
-								fontFamily 	= target.getStyle('fontFamily'),
-								fontWeight 	= target.getStyle('fontWeight'),
-								padding  	= target.getStyle('padding'),
-								margin 		= target.getStyle('margin'),
-								changedContent;
+						var target 		= e.target,
+							parentNode 	= target.get('parentNode'),
+							text 		= target.get('innerText'),
+							className 	= target.get('className'),
+							height 		= target.get('clientHeight'),
+							width 		= target.get('clientWidth'),
+							fontSize 	= target.getStyle('fontSize'),
+							fontFamily 	= target.getStyle('fontFamily'),
+							fontWeight 	= target.getStyle('fontWeight'),
+							padding  	= target.getStyle('padding'),
+							margin 		= target.getStyle('margin'),
+							changedContent;
 
-								content = '<textarea style="height:' + height + 'px; width:' + width + 'px;" class="' + className + ' current-edit">' + text + '</textarea>';
+						content = '<textarea style="height:' + height + 'px; width:' + width + 'px;" class="' + className + ' pearl-current-edit">' + text + '</textarea>';
 
-								e.target.get('parentNode').replaceChild(content, e.target);
-								parentNode.one('.current-edit').setStyles({
-									'backgroundColor': 'transparent',
-									'border': 'none',
-									'margin': margin,
-									'padding': padding,
-									'fontFamily': fontFamily,
-									'fontSize': fontSize,
-									'fontWeight': fontWeight
-								});
+						target.get('parentNode').replaceChild(content, e.target);
 
-								parentNode.one('.current-edit').on('mouseleave', function(e) {
+						parentNode.one('.pearl-current-edit').setStyles({
+							'backgroundColor': 'transparent',
+							'border': 'none',
+							'margin': margin,
+							'padding': padding,
+							'fontFamily': fontFamily,
+							'fontSize': fontSize,
+							'fontWeight': fontWeight
+						});
 
-									changedContent = Y.Escape.html( this.get('value') );
-									target.set('innerHTML', changedContent);
-									parentNode.replaceChild(target, this);
+						parentNode.one('.pearl-current-edit').on('mouseleave', function(e) {
 
-								});
-
-							}
+							changedContent = Y.Escape.html( this.get('value') );
+							target.set('innerHTML', changedContent);
+							parentNode.replaceChild(target, this);
 
 						});
-					
+
 					}
+
 				});
+					
+			});
 			
 			// Check if element is some form of a text element
 			function isText(ele) {
