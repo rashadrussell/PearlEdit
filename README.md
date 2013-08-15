@@ -54,3 +54,8 @@ Features in Progress(See branches)
 - DD Elements: Drag & Drop additional UI Elements into DOM such as forms, tables, buttons, slideshows, etc.
 - DD Images: Allows users to drag & drop images from a desktop into DOM, and replace filler images.
 
+
+License
+---------------
+The code in this repository is free to use under YUI's BSD license. See the [License Page](http://yuilibrary.com/license/) copyright information.
+
