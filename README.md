@@ -57,4 +57,4 @@ Features in Progress(See branches)
 
 License
 ---------------
-The code in this repository is free to use under YUI's BSD license. See the [License Page](http://yuilibrary.com/license/) copyright information.
+This software is free to use under the Yahoo! Inc. BSD license. See the LICENSE file for license text and copyright information.
