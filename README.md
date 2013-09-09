@@ -16,7 +16,7 @@ API's
 -----
 YUI - http://yuilibrary.com
 
-Express - http://expressjs.com
+Express - http://expressjs.com  ( source: https://github.com/visionmedia/express )
 
 Pure CSS - http://www.purecss.io
 
