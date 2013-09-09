@@ -1,7 +1,7 @@
 PearlEdit
 ===============
 
-PearlEdit is a live WYSIWYG layout generator that allows for in browser customization and guranteeing responsiveness. 
+PearlEdit is a live WYSIWYG layout generator that allows for in browser customization and guaranteeing responsiveness. 
 
 Use Chrome(recommended) or FireFox for best suppport. 
 
