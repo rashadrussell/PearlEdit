@@ -59,7 +59,9 @@ YUI.add('general-settings', function(Y) {
 					e.stopPropagation();
 
 					iframeDocument = iframe.get('contentWindow').get('document');
-					iframeHeight   = iframeDocument.get('height');
+					iframeBody = iframeDocument.get('body');
+					iframeHeight   = iframeBody.getStyle('height');
+					console.log(iframeHeight);
 					iframe.setStyles({
 						'backgroundColor': '#fff',
 						'height': iframeHeight
