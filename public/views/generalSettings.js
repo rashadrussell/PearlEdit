@@ -33,7 +33,7 @@ YUI.add('general-settings', function(Y) {
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
 		changeLayout: function(e) {
-
+			counter = 1;
 			var banner = Y.one('.choose-layout-banner'),
 				layout = e.target.get('value'),
 				path   = '/views/layouts/' + layout,
@@ -55,13 +55,18 @@ YUI.add('general-settings', function(Y) {
 
 				iframe.setStyle('display', 'block');
 
-				iframe.after('load', function(e) {
+				/*
+				 * When I used the iframe.after('load'... method, for some reason the code 
+				 * inside the function would incrementally loop. This would break the ability
+				 * to drag & drop elements when switching layouts, and cause the page to 
+				 * increasingly load slower. FIGURE OUT THE REASON WHY THIS HAPPEND.
+				 */
+				iframe.onceAfter('load', function(e) {
 					e.stopPropagation();
 
 					iframeDocument = iframe.get('contentWindow').get('document');
 					iframeBody = iframeDocument.get('body');
 					iframeHeight   = iframeBody.getStyle('height');
-					console.log(iframeHeight);
 					iframe.setStyles({
 						'backgroundColor': '#fff',
 						'height': iframeHeight
@@ -72,6 +77,7 @@ YUI.add('general-settings', function(Y) {
 					dddom    = new DDDOM();
 					textEdit = new TextEdit().render();
 					gearEdit = new GearEditButton({exists: false, active: false});
+
 				});
 
 			} else {
