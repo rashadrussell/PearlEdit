@@ -43,6 +43,11 @@ a {
 
 }
 
+.github_logo {
+	width: 50px;
+	height: 42px;
+}
+
 #content {
 	height: 150px;
 	background: #f7faff;
