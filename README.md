@@ -1,7 +1,7 @@
 PearlEdit BETA Version
 ======================
 
-PearlEdit is a live WYSIWYG layout editor that allows for in browser customization, and guaranteeing responsive themes.
+PearlEdit is a live WYSIWYG layout editor that allows for in browser customization while guaranteeing responsive themes.
 
 
 Live DEMO: http://pearledit.aws.af.cm/
