@@ -7,18 +7,6 @@ PearlEdit is a live WYSIWYG layout editor that allows for in browser customizati
 Live DEMO: http://pearledit.aws.af.cm/
 
 
-Start Program(using MAMP server)
---------------------------------
-
-1. Start MAMP server
-
-2. Copy all folders and files in the root directory of this project in to MAMP's htdocs folder  
-
-3. Copy downloadLayout.py from the cgi-bin folder into the cgi-bin folder in MAMP.
-
-4. In index.html and downloadLayout.py, change all references of the localhost port to the port MAMP uses. Mines is port 8888.(e.g. http://localhost:8888/)
-
-
 Technology
 ----------
 YUI - http://yuilibrary.com
