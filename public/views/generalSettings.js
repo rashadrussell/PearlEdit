@@ -12,10 +12,11 @@ YUI.add('general-settings', function(Y) {
 		template: Y.one('#general-settings').getHTML(),
 
 		events: {
+			'.download'            : {click: 'downloadLayout'},
 			'.layout-selector'     : {change: 'changeLayout'},
 			'.font-size-selector'  : {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
-			'.display-edit-buttons': {click : 'displayEditButtons'},
+			'.display-edit-buttons': {click : 'displayEditButtons'}
 		},
 
 		initializer: function() {
@@ -32,11 +33,20 @@ YUI.add('general-settings', function(Y) {
 		},
 
 		// ---- Event Handlers -------------------------------------------------------------------------------------
+		downloadLayout: function(e) {
+			var htmlContent = Y.one('#layout-iframe').get('contentWindow').get('document').get('documentElement').get('outerHTML'),
+			    layoutName  = Y.one('.layout-selector').get('value');
+			
+			Y.one('#HTMLContent').set('value', htmlContent);
+			Y.one('#layoutName').set('value', layoutName);
+			
+		},
+
 		changeLayout: function(e) {
 			counter = 1;
 			var banner = Y.one('.choose-layout-banner'),
 				layout = e.target.get('value'),
-				path   = '/views/layouts/' + layout,
+				path   = './public/views/layouts/' + layout,
 				that   = this,				
 				iframeDocument,
 				iframeHeight,
@@ -167,7 +177,8 @@ YUI.add('general-settings', function(Y) {
 	requires: [
 		'gear-edit-button',
 		'dd-dom',
-		'text-edit'
+		'text-edit',
+		'io-base'
 	]
 
 });

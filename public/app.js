@@ -12,8 +12,7 @@ YUI.add('pearl-app', function(Y) {
 		initializer: function() {
 
 			var generalSettings = new GeneralSettings();
-			generalSettings.render();
-
+			
 		},
 
 		render: function() {
