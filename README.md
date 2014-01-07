@@ -7,16 +7,6 @@ PearlEdit is a live WYSIWYG layout editor that allows for in browser customizati
 Live DEMO: http://pearledit.aws.af.cm/
 
 
-Support
--------
-
-Use Chrome(recommended) or FireFox for best suppport. 
-
-I am using a MAMP(http://www.mamp.info) server to run PearlEdit locally (WAMP for Windows users & LAMP for Linux users). I am still trying to figure out alternative ways to run this program. Since I am using CGI with Python to create the 'download' feature, 
-I am still looking for hosting options that will support CGI, or an alternative way to accomplish the 
-download feature
-
-
 Start Program(using MAMP server)
 --------------------------------
 
