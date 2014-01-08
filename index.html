@@ -32,12 +32,6 @@
 <!-- General Settings Template -->
 <script id="general-settings" type='text/generator-template'>
 
-	<form class='download' action='http://pearledit.aws.af.cm/downloadLayout.php' method='POST'>
-		<input id='layoutName' type='hidden' name='layoutName' value=''>
-		<input id='HTMLContent' type='hidden' name='htmlContent' value=''>
-		<input type='submit' value='Download' />
-	</form>
-
 	<select class='layout-selector'>
 		<option value="">Layouts</option>
 		<option value="Marketing">Marketing</option>
@@ -59,7 +53,6 @@
 	<select class='font-family-selector'>
 		<option value="arial">Arial</option>
   		<option value="helvetica">Helvetica</option>
-  		<option value="Lucida Grande">Lucida Grande</option>
   		<option value="sans">Sans</option>
  		<option value="sans-serif">Sans-Serif</option>
  		<option value="times">Times</option>
@@ -68,7 +61,11 @@
 	<!-- <label for="display-edit-button-textbox">Show Edit</label> -->
 	<!-- <input id="display-edit-button-textbox" class="display-edit-buttons" type="checkbox" /> -->
 
-	<a href='https://github.com/rashadrussell/PearlEdit'><img class='github_logo' src='./public/img/octocat.jpg' alt='Github' /></a>
+	<form class='download' action='http://pearledit.aws.af.cm/downloadLayout.php' method='POST'>
+		<input id='layoutName' type='hidden' name='layoutName' value=''>
+		<input id='HTMLContent' type='hidden' name='htmlContent' value=''>
+		<input type='submit' value='Download' />
+	</form>
 </script>
 
 <!-- Edit Module Template -->
