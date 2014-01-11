@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>PearlEdit BETA</title>
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
 	<link rel='stylesheet' type='text/css' href='./public/css/style.css' />
 	<link rel="icon" 
       type="image/png" 
@@ -11,14 +10,48 @@
 <body>
 
 
-<div id='wrapper' class='pure-g'>
+<div id='wrapper'>
 
-	<div id='header' class='pure-u-1'>
-		<img class="logoImg" src="./public/img/pearlLogo.png" />
-		<h3 class='logo'>PearlEdit BETA</h3>
+	<div class='infoBox'>
+		<img class='close' src='./public/img/closeX.png' alt='Close' />
+		<div class='infoBox_content'>
+			<h3>PearlEdit Beta, by <a target='_blank' href='http://www.github.com/rashadrussell'>Rashad Russell</a></h3>
+
+			<p>
+				PearlEdit is a live WYSIWYG layout editor that allows for in-browser customization while guaranteeing responsive themes. The goal of PearlEdit is to give developers who do not have a knack for design an easy way to produce beautiful layouts. PearlEdit was a project that I initialized as an intern on the <a target='_blank' href='http://yuilibrary.com/'>YUI team</a> at Yahoo during the summer of 2013. The <a target='_blank' href='http://purecss.io/'>Pure</a> CSS framework was released on the first day of my internship, and I was amazed of its ability to allow developers to rapidly create responsive themes. I wanted to create a project that capitalizes on that ability as well as promote its existance.
+			</p>
+			<p>
+				The intent of PearlEdit's user experience was to give users the ability to design a layout directly as it would appear, live in the browser. I wanted to provide editing tools that are made from a user interface designer's perspective such as premade slideshows, forms, color palettes, and icons. Overall, the hope is for PearlEdit to enable users to choose premade responsive themes with the proper tools that will give non-designers the power to generate beautiful interfaces.
+			</p>
+				<h4>Future features may indlude:</h4>
+				<ul>
+					<li>Drag & Drop UI elements such as icons, forms, nav menus, slideshows, etc. into the dom.</li>
+					<li>Drag & Drop images to replace the image placeholders using HTML5.</li>
+					<li>Premade color palette suggested sets to ajust themes.</li>
+				</ul>
+
+				Please, feel free to contribute to the project via <a target='_blank' href='http://www.github.com/rashadrussell/pearledit'>Github</a>.
+			</p>
+		</div>
 	</div>
 
-	<div id='content' class='pure-u-1'>
+	<div id='header'>
+
+		<div class="logo_section">
+			<img class="logoImg" src="./public/img/pearlLogo.png" />
+			<h3 class='logo'>PearlEdit Beta</h3>
+		</div>
+
+		<div class='project_info'>
+			<ul>
+				<li><a target='_blank' href='http://www.github.com/rashadrussell/pearledit'>GitHub!</a></li>
+				<li><a class='info_link' href="#">About</a></li>
+			</ul>	
+		</div>
+
+	</div>
+
+	<div id='content'>
 		<h1 class="choose-layout-banner">Choose Layout</h1>
 
 		<iframe id="layout-iframe">
@@ -27,7 +60,7 @@
 	</div>
 
 </div>
-
+<div style="background: black; width: 100px; height: 100px; margin-top: 1290px; position: absolute; z-index: 200"></div>
 <!-- Templates -->
 <!-- General Settings Template -->
 <script id="general-settings" type='text/generator-template'>
@@ -64,7 +97,7 @@
 	<form class='download' action='http://pearledit.aws.af.cm/downloadLayout.php' method='POST'>
 		<input id='layoutName' type='hidden' name='layoutName' value=''>
 		<input id='HTMLContent' type='hidden' name='htmlContent' value=''>
-		<input type='submit' value='Download' />
+		<input type='submit' value='DOWNLOAD' />
 	</form>
 </script>
 
@@ -156,7 +189,8 @@
 
 </script>
 
-<script src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
+<script src='http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js'></script>
+<script src='./public/js/info_modal.js'></script>
 <script src='./public/app.js'></script>
 <script>
 
