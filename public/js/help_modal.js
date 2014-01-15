@@ -1,10 +1,10 @@
 YUI().use('node', function(Y) {
 
-	Y.one('.info_link').on('click', function(e) {
+	Y.one('.help_link').on('click', function(e) {
 		e.preventDefault();
 
 		var transparency = Y.Node.create('<div></div>'),
-			infoBox = Y.one('.infoBox');
+			infoBox = Y.one('.helpBox');
 
 		transparency.setAttribute('class', 'transparentScreen');
 		transparency.setStyles({
@@ -24,7 +24,7 @@ YUI().use('node', function(Y) {
 			display: 'block'
 		});
 
-		Y.one('.infoBox .close').on('click', function() {
+		Y.one('.helpBox .close').on('click', function() {
 			transparency.remove();
 			infoBox.setStyles({
 				display: 'none',
@@ -32,7 +32,7 @@ YUI().use('node', function(Y) {
 			});
 		});
 
-		Y.one('.infoBox .close').setStyles({
+		Y.one('.helpBox .close').setStyles({
 			top: infoBox.getY() - 12 + 'px',
 			left: infoBox.getX() + 805 + 'px',
 			display: 'block'

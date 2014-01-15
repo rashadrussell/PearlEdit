@@ -60,7 +60,7 @@
 	</div>
 
 </div>
-<div style="background: black; width: 100px; height: 100px; margin-top: 1290px; position: absolute; z-index: 200"></div>
+
 <!-- Templates -->
 <!-- General Settings Template -->
 <script id="general-settings" type='text/generator-template'>
@@ -191,6 +191,7 @@
 
 <script src='http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js'></script>
 <script src='./public/js/info_modal.js'></script>
+<script src='./public/js/help_modal.js'></script>
 <script src='./public/app.js'></script>
 <script>
 
@@ -209,7 +210,7 @@
 						path: 'views/generalSettings.js',
 						requires: [
 							'node',
-							'gear-edit-button',
+							//'gear-edit-button',
 							'dd-dom',
 							'text-edit',
 							'io-base'
@@ -235,7 +236,7 @@
 							'dd-delegate'
 						]
 					},
-
+					/*
 					'gear-edit-button': {
 						path: 'views/gearEditButton.js',
 						requires: [
@@ -245,7 +246,7 @@
 							'event-mouseenter'
 						]
 					},
-
+					*/
 					'edit-module': {
 						path: 'views/editModule.js',
 						requires: [

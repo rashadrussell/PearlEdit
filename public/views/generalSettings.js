@@ -16,7 +16,7 @@ YUI.add('general-settings', function(Y) {
 			'.layout-selector'     : {change: 'changeLayout'},
 			'.font-size-selector'  : {change: 'changeFontSize'},
 			'.font-family-selector': {change: 'changeFontFamily'},
-			'.display-edit-buttons': {click : 'displayEditButtons'}
+			//'.display-edit-buttons': {click : 'displayEditButtons'}
 		},
 
 		initializer: function() {
@@ -86,7 +86,7 @@ YUI.add('general-settings', function(Y) {
 				
 					dddom    = new DDDOM();
 					textEdit = new TextEdit().render();
-					gearEdit = new GearEditButton({exists: false, active: false});
+					//gearEdit = new GearEditButton({exists: false, active: false});
 
 				});
 
@@ -113,7 +113,7 @@ YUI.add('general-settings', function(Y) {
 
 			this.get('layoutBody').setStyle('fontFamily', fontFamily);
 		},
-
+		/*
 		displayEditButtons: function(e) {
 			
 			var layoutBody = this.get('layoutBody');
@@ -155,7 +155,7 @@ YUI.add('general-settings', function(Y) {
 			}
 			
 		}
-		
+		*/
 	}, {
 		ATTRS: {
 
@@ -175,7 +175,7 @@ YUI.add('general-settings', function(Y) {
 }, '@VERSION@', {
 
 	requires: [
-		'gear-edit-button',
+		//'gear-edit-button',
 		'dd-dom',
 		'text-edit',
 		'io-base'
