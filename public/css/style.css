@@ -66,49 +66,24 @@ a {
 	margin: 1px 0 0 0;
 }
 
-.infoBox {
+.pearl_modal {
 	display: none;
 	background: #161C33;
 	position: fixed;
 	padding: 15px;
 	width: 800px;
-	height: 425px;
 	border-radius: 20px;
 	z-index: 20000;
 }
 
-.infoBox .close {
+.pearl_modal .close {
 	position: fixed;
 	display: none;
 	width: 40px;
 	height: 40px;
 }
 
-.infoBox_content {
-	background: #fff;
-	color: #000;
-	padding: 10px;
-}
-
-.helpBox {
-	display: none;
-	background: #161C33;
-	position: fixed;
-	padding: 15px;
-	width: 800px;
-	height: 156px;
-	border-radius: 20px;
-	z-index: 20000;
-}
-
-.helpBox .close {
-	position: fixed;
-	display: none;
-	width: 40px;
-	height: 40px;
-}
-
-.helpBox_content {
+.pearl_modal_content {
 	background: #fff;
 	color: #000;
 	padding: 10px;
