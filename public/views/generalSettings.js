@@ -113,49 +113,7 @@ YUI.add('general-settings', function(Y) {
 
 			this.get('layoutBody').setStyle('fontFamily', fontFamily);
 		},
-		/*
-		displayEditButtons: function(e) {
-			
-			var layoutBody = this.get('layoutBody');
 
-			if( e.target.get('checked') ) {
-
-				layoutBody.all('.pearl-edit').each(function(n) {
-					n.get('children').each(function(child) {
-
-						if(child.hasClass('gearButton')) {
-
-							child.setStyles({
-								'display': 'block'
-							});
-
-						}
-
-					});
-				});
-
-			}
-
-			if( !e.target.get('checked') ) {
-
-				layoutBody.all('.pearl-edit').each(function(n) {
-					n.get('children').each(function(child) {
-
-						if(child.hasClass('gearButton')) {
-
-							child.setStyles({
-								'display': 'none'
-							});
-									
-						}
-
-					});
-				});
-
-			}
-			
-		}
-		*/
 	}, {
 		ATTRS: {
 
